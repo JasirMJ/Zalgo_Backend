@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
+from ProductApp.models import Product
 from RequestsApp.models import *
 from RequestsApp.serializers import RequestModelSerializer, RequestModelDropdownSerializer
 from zalgo_BE.GlobalFunctions import *
@@ -48,6 +49,25 @@ class RequestModelAPI(ListAPIView):
         else:
             print("Receved required Fields")
 
+        name = self.request.POST.get('name','')
+        if name not in Product.objects.all().value_list('name',flat=True):
+            return ResponseFunction(0,"Invalid name for request 'name'",REQUEST_TYPES)
+
+
+        data = {
+
+            "id": self.request.POST.get('id',''),
+            "name": self.request.POST.get('name'),
+            "request_by": self.request.user.username,
+            "customer_name": self.request.POST.get('customer_name',''),
+            "account_number":  self.request.POST.get('account_number',''),
+            "broker":  self.request.POST.get('broker',''),
+            "server":  self.request.POST.get('server',''),
+            "phone_number":  self.request.POST.get('phone_number',''),
+            "password":  self.request.POST.get('password',''),
+            "is_paid": self.request.POST.get('is_paid',False),
+            "is_free_trail": self.request.POST.get('is_free_trail',False),
+        }
 
         try:
 
@@ -59,11 +79,11 @@ class RequestModelAPI(ListAPIView):
                 if not RequestModel_qs.count():
                     return ResponseFunction(0, "RequestModel Not Found", {})
                 variant_obj = RequestModel_qs.first()
-                serializer = RequestModelSerializer(variant_obj, data=request.data, partial=True)
+                serializer = RequestModelSerializer(variant_obj, data=data, partial=True)
                 msg = "Data updated"
             else:
                 print("Adding new RequestModel")
-                serializer = RequestModelSerializer(data=request.data, partial=True)
+                serializer = RequestModelSerializer(data=data, partial=True)
                 msg = "Data saved"
             serializer.is_valid(raise_exception=True)
 

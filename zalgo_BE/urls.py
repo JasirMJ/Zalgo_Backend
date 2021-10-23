@@ -22,4 +22,8 @@ urlpatterns = [
     path('users/', include('UserApp.urls')),
     path('settings/', include('SettingsApp.urls')),
     path('country/', include('CountryApp.urls')),
+    path('requests/', include('RequestsApp.urls')),
+    path('product/', include('ProductApp.urls')),
+    path('banners/', include('BannerApp.urls')),
+    path('notifications/', include('NotificationApp.urls')),
 ]
