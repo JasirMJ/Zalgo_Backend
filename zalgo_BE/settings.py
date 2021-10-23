@@ -100,7 +100,7 @@ print("Your Platform is ",device_platform)
 if device_platform=="Windows":
     password = "123123"
 else:
-    password = "zUG98286y70h"
+    password = "vLnMINbVxGt9"
 
 if CurrentDatabase=="sqlite":
     DATABASES = {
