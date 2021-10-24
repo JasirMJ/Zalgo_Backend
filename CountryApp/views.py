@@ -12,7 +12,7 @@ class CountryAPI(ListAPIView):
 
     serializer_class = CountrySerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
         pagination = self.request.GET.get('pagination', '1')

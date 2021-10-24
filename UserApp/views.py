@@ -33,10 +33,10 @@ class UserAPI(ListAPIView):
         username = self.request.GET.get('username','')
         is_blocked = self.request.GET.get('is_blocked','')
 
-        # if not self.request.user.is_superuser:
-        #     print("Request not from superuser, then he get his own data only and null for anonimous users")
-        #
-        #     return UserDetails.objects.filter(username=self.request.user.username)
+        if not self.request.user.is_superuser:
+            print("Request not from superuser, then he get his own data only and null for anonimous users")
+
+            return UserDetails.objects.filter(username=self.request.user.username)
 
 
         qs = UserDetails.objects.all()
