@@ -13,7 +13,8 @@ class UserAppDashboardAPI(APIView):
         try:
             data = {}
 
-            data['banners']=BannerSerializer(Banner.objects.all(),many=True).data
+            data['banners']=BannerSerializer(Banner.objects.filter(is_broker_image=0),many=True).data
+            data['broker_image']=BannerSerializer(Banner.objects.filter(is_broker_image=1),many=True).data
             # print(data['banners'])
             data['products']=ProductSerializer(Product.objects.filter(is_product=1),many=True).data
             # print(data['products'])
