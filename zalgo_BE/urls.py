@@ -20,6 +20,8 @@ from django.conf.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from Dashboard.views import UserAppDashboardAPI
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('UserApp.urls')),
@@ -29,6 +31,7 @@ urlpatterns = [
     path('product/', include('ProductApp.urls')),
     path('banners/', include('BannerApp.urls')),
     path('notifications/', include('NotificationApp.urls')),
+    path('dashboard-userapp/', UserAppDashboardAPI.as_view()),
 ]
 
 if settings.DEBUG:

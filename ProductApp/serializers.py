@@ -14,9 +14,15 @@ class ProductUserDetailsSerializer(DynamicFieldsModelSerializer):
             "mobile",
         ]
 
+class SubProductSerializer(DynamicFieldsModelSerializer):
+    class Meta:
+        model = SubProduct
+        # fields = ["mobile_number", "whatsapp_number", "is_customer", "is_staff"]
+        fields = "__all__"
+
 
 class ProductSerializer(DynamicFieldsModelSerializer):
-    # user = ProductUserDetailsSerializer()
+    sub_product = SubProductSerializer(many=True)
     class Meta:
         model = Product
         # fields = ["mobile_number", "whatsapp_number", "is_customer", "is_staff"]
@@ -28,10 +34,4 @@ class ProductDropdownSerializer(DynamicFieldsModelSerializer):
         model = Product
         fields = ["id", "name"]
 
-
-class SubProductSerializer(DynamicFieldsModelSerializer):
-    class Meta:
-        model = SubProduct
-        # fields = ["mobile_number", "whatsapp_number", "is_customer", "is_staff"]
-        fields = "__all__"
 
