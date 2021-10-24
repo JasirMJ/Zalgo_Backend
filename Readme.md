@@ -17,3 +17,20 @@ Type "help" for help.
 ######postgres=# CREATE DATABASE ayd;
 CREATE DATABASE
 postgres=#
+
+
+
+###Automated Shell Script for github Fetch Simply run the file
+
+git config credential.helper store
+git config --global credential.helper cache
+
+Try manually first time then credential will be stored 
+
+sudo git fetch --all
+ 
+jasirmj
+
+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
+
+sudo git reset --hard origin/main

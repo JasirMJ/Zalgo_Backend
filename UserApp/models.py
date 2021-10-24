@@ -18,8 +18,12 @@ class UserDetails(AbstractUser):
     referred_count = models.CharField(null=True,max_length=12)
     file = models.FileField(null=True)
 
+    date_of_birth = models.DateField(null=True)
+
     pan_card_details = models.CharField(null=True,max_length=255)
+    bankaccount_name = models.CharField(null=True,max_length=255)
     bankaccount_details = models.CharField(null=True,max_length=255)
+    bankaccount_IFSC = models.CharField(null=True,max_length=255)
 
     vip_rank = models.CharField(null=True,max_length=10)
 
