@@ -5,7 +5,7 @@ from TopicApp.models import Topic
 
 
 class Lesson(models.Model):
-    name = models.CharField(max_length=50,unique=True)
+    name = models.CharField(max_length=50)
     description = models.TextField(null=True)
 
     # file = models.FileField(null=False,blank=False)

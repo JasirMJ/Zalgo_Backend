@@ -35,6 +35,7 @@ class CourseAPI(ListAPIView):
         if name: qs = qs.filter(name__icontains=name)
         if course_code: qs = qs.filter(course_code=course_code)
 
+
         return qs
 
     def post(self, request):

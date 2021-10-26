@@ -5,7 +5,7 @@ from LessonApp.models import Lesson
 
 
 class Course(models.Model):
-    name = models.CharField(max_length=50,unique=True)
+    name = models.CharField(max_length=50)
     course_duration = models.CharField(max_length=50,null=True)
     file = models.FileField(null=False,blank=False)
     description = models.TextField(null=True)

@@ -25,6 +25,7 @@ class TopicAPI(ListAPIView):
         is_dropdown = self.request.GET.get('is_dropdown', False)
         name = self.request.GET.get('name','')
         topic_code = self.request.GET.get('topic_code','')
+        lesson = self.request.GET.get('lesson', '')
 
         if is_dropdown=='1':
             print("Drop down get request")
@@ -35,6 +36,7 @@ class TopicAPI(ListAPIView):
         if id: qs = qs.filter(id=id)
         if name: qs = qs.filter(name__icontains=name)
         if topic_code: qs = qs.filter(topic_code=topic_code)
+        if lesson: qs = Lesson.objects.get(id=lesson).topic.all()
 
         return qs
 

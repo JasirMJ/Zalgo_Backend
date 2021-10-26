@@ -25,6 +25,7 @@ class LessonAPI(ListAPIView):
         is_dropdown = self.request.GET.get('is_dropdown', False)
         name = self.request.GET.get('name','')
         lesson_code = self.request.GET.get('lesson_code','')
+        course = self.request.GET.get('course', '')
 
         if is_dropdown=='1':
             print("Drop down get request")
@@ -35,6 +36,9 @@ class LessonAPI(ListAPIView):
         if id: qs = qs.filter(id=id)
         if name: qs = qs.filter(name__icontains=name)
         if lesson_code: qs = qs.filter(lesson_code=lesson_code)
+
+
+        if course: qs = Course.objects.get(id=course).lessons.all()
 
         return qs
 

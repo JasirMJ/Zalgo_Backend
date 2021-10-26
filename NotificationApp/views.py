@@ -99,6 +99,55 @@ class NotificationAPI(ListAPIView):
             return ResponseFunction(0,f"Excepction occured {str(e)}",{})
 
 
+    def patch(self, request):
+
+        required = ["keyword"]
+        validation_errors = ValidateRequest(required, self.request.data)
+        if len(validation_errors) > 0:
+            return ResponseFunction(0, validation_errors[0]['error'], {})
+        else:
+            print("Receved required Fields")
+
+        keyword = self.request.POST.get("keyword", "")
+
+        list_keyword = ["mark_as_read","read_all","get_unread"]
+        if keyword not in list_keyword:
+            return ResponseFunction(0, "keyword value must be in " + str(list_keyword), {})
+
+        msg = "Nothing happent"
+
+        try:
+            if keyword == "mark_as_read":
+                id_list = self.request.POST["id_list"]
+                id_list = json.loads(id_list)
+
+                # id = self.request.POST["id"]
+                print("Wishlist ",id_list)
+                print("self.request.user ",self.request.user)
+                print("Wishlist ",id_list)
+                _qs = Notification.objects.filter(user_id=self.request.user.id,id__in=id_list).update(read=1)
+                msg = "Notification marked as read"
+
+                return ResponseFunction(1, msg, {"Note":"API need to be called else pagination issue occures"})
+
+            if keyword == "read_all":
+                _qs = Notification.objects.filter(user_id=self.request.user.id).update(read=1)
+                msg = "Marked all notification as read"
+
+                return ResponseFunction(1, msg, {"unread": 0})
+
+            if keyword == "get_unread":
+                _qs = Notification.objects.filter(user_id=self.request.user.id,read=0)
+                msg = "Total unread notifications"
+
+                return ResponseFunction(1, msg, {"unread": _qs.count()})
+
+            return ResponseFunction(1, msg, {})
+        except Exception as e:
+            printLineNo()
+            return ResponseFunction(0, str(e)+" "+printLineNo(), {})
+
+
     def delete(self, request):
         try:
             id = self.request.GET.get('id', "[]")
