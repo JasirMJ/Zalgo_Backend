@@ -9,7 +9,8 @@ vLnMINbVxGt9
 
 ####*Postgres Set up in AWS*
 
-######bitnami@ip-172-31-32-90:~$ sudo -u postgres psql
+######bitnami@ip-172-31-32-90:~$ 
+sudo -u postgres psql
 
 Password for user postgres : vLnMINbVxGt9
 psql (11.13)
@@ -18,6 +19,10 @@ Type "help" for help.
 ######postgres=# CREATE DATABASE ayd;
 CREATE DATABASE
 postgres=#
+
+
+from django.contrib.contenttypes.models import ContentType
+ContentType.objects.all().delete()
 
 
 

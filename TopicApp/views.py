@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
+from LessonApp.models import Lesson
 from TopicApp.models import *
 from TopicApp.serializers import *
 from zalgo_BE.GlobalFunctions import *
@@ -38,7 +39,7 @@ class TopicAPI(ListAPIView):
         return qs
 
     def post(self, request):
-        required = ["name","topic_code"]
+        required = ["name","lesson"]
         validation_errors = ValidateRequest(required, self.request.data)
 
         if len(validation_errors) > 0:
@@ -50,6 +51,14 @@ class TopicAPI(ListAPIView):
         try:
 
             id = self.request.POST.get("id", "")
+            lesson = self.request.POST.get("lesson", "")
+            lesson_obj = None
+            if lesson:
+                lesson_qs = Lesson.objects.filter(id=lesson)
+                if lesson_qs.count():
+                    lesson_obj = lesson_qs.first()
+                else:
+                    return ResponseFunction(0,"Lesson not found",{})
 
             if id:
 
@@ -67,6 +76,7 @@ class TopicAPI(ListAPIView):
             serializer.is_valid(raise_exception=True)
 
             obj = serializer.save()
+            lesson_obj.topic.add(obj)
 
             return ResponseFunction(1, msg, TopicSerializer(obj).data)
         except Exception as e:

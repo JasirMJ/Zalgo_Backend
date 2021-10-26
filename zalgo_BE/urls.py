@@ -31,6 +31,8 @@ urlpatterns = [
     path('product/', include('ProductApp.urls')),
     path('banners/', include('BannerApp.urls')),
     path('course/', include('CourseApp.urls')),
+    path('lesson/', include('LessonApp.urls')),
+    path('topic/', include('TopicApp.urls')),
     path('notifications/', include('NotificationApp.urls')),
     path('dashboard-userapp/', UserAppDashboardAPI.as_view()),
 ]

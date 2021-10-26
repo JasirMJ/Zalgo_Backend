@@ -47,9 +47,7 @@ class LessonAPI(ListAPIView):
         else:
             print("Receved required Fields")
 
-
         try:
-
             id = self.request.POST.get("id", "")
             course = self.request.POST.get("course", "")
             course_obj = None
