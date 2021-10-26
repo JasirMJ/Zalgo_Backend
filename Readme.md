@@ -20,7 +20,7 @@ Type "help" for help.
 CREATE DATABASE
 postgres=#
 
-
+sudo python manage.py shell
 from django.contrib.contenttypes.models import ContentType
 ContentType.objects.all().delete()
 
