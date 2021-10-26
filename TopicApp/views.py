@@ -1,17 +1,16 @@
 from django.shortcuts import render
 
 # Create your views here.
-from CourseApp.models import Course
-from LessonApp.models import *
-from LessonApp.serializers import *
+from TopicApp.models import *
+from TopicApp.serializers import *
 from zalgo_BE.GlobalFunctions import *
 from zalgo_BE.GlobalImports import *
 
 
 
-class LessonAPI(ListAPIView):
+class TopicAPI(ListAPIView):
 
-    serializer_class = LessonSerializer
+    serializer_class = TopicSerializer
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
@@ -24,22 +23,22 @@ class LessonAPI(ListAPIView):
         id = self.request.GET.get('id', '')
         is_dropdown = self.request.GET.get('is_dropdown', False)
         name = self.request.GET.get('name','')
-        lesson_code = self.request.GET.get('lesson_code','')
+        topic_code = self.request.GET.get('topic_code','')
 
         if is_dropdown=='1':
             print("Drop down get request")
-            self.serializer_class = LessonDropdownSerializer
+            self.serializer_class = TopicDropdownSerializer
 
-        qs = Lesson.objects.all()
+        qs = Topic.objects.all()
 
         if id: qs = qs.filter(id=id)
         if name: qs = qs.filter(name__icontains=name)
-        if lesson_code: qs = qs.filter(lesson_code=lesson_code)
+        if topic_code: qs = qs.filter(topic_code=topic_code)
 
         return qs
 
     def post(self, request):
-        required = ["name","course"]
+        required = ["name","topic_code"]
         validation_errors = ValidateRequest(required, self.request.data)
 
         if len(validation_errors) > 0:
@@ -51,34 +50,25 @@ class LessonAPI(ListAPIView):
         try:
 
             id = self.request.POST.get("id", "")
-            course = self.request.POST.get("course", "")
-            course_obj = None
-            if course:
-                course_qs = Course.objects.filter(id=course)
-                if course_qs.count():
-                    course_obj = course_qs.first()
-                else:
-                    return ResponseFunction(0,"Course not found",{})
 
             if id:
 
-                print("Lesson Updating")
-                Lesson_qs = Lesson.objects.filter(id=id)
-                if not Lesson_qs.count():
-                    return ResponseFunction(0, "Lesson Not Found", {})
-                lesson_obj = Lesson_qs.first()
-                serializer = LessonSerializer(lesson_obj, data=request.data, partial=True)
+                print("Topic Updating")
+                Topic_qs = Topic.objects.filter(id=id)
+                if not Topic_qs.count():
+                    return ResponseFunction(0, "Topic Not Found", {})
+                topic_obj = Topic_qs.first()
+                serializer = TopicSerializer(topic_obj, data=request.data, partial=True)
                 msg = "Data updated"
             else:
-                print("Adding new Lesson")
-                serializer = LessonSerializer(data=request.data, partial=True)
+                print("Adding new Topic")
+                serializer = TopicSerializer(data=request.data, partial=True)
                 msg = "Data saved"
             serializer.is_valid(raise_exception=True)
 
             obj = serializer.save()
-            course_obj.lessons.add(obj)
 
-            return ResponseFunction(1, msg, LessonSerializer(obj).data)
+            return ResponseFunction(1, msg, TopicSerializer(obj).data)
         except Exception as e:
             printLineNo()
 
@@ -97,7 +87,7 @@ class LessonAPI(ListAPIView):
                 STATUS: False,
                 MESSAGE: "Required object id as id"
             })
-        serializer = LessonSerializer(Lesson.objects.filter(id=id).first(), data=request.data, partial=True)
+        serializer = TopicSerializer(Topic.objects.filter(id=id).first(), data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return ResponseFunction(1, "Data updated",{})
@@ -108,13 +98,13 @@ class LessonAPI(ListAPIView):
             id = self.request.GET.get('id', "[]")
             if id == "all":
 
-                Lesson.objects.all().delete()
+                Topic.objects.all().delete()
                 return ResponseFunction(1, "Deleted all data",{})
 
             else:
                 id = json.loads(id)
                 # print(id)
-                Lesson.objects.filter(id__in=id).delete()
+                Topic.objects.filter(id__in=id).delete()
                 return ResponseFunction(1, "Deleted data having id " + str(id),{})
 
         except Exception as e:

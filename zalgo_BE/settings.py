@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'NotificationApp',
     'LessonApp',
     'CourseApp',
+    'TopicApp',
+
     'CountryApp',
     'BannerApp',
 
