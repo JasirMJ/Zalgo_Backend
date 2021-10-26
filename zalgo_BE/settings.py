@@ -99,7 +99,7 @@ import platform
 device_platform = platform.system()
 
 CurrentDatabase = "psql"
-print("Your Platform is ",device_platform)
+# print("Your Platform is ",device_platform)
 if device_platform=="Windows":
     password = "123123"
 else:
