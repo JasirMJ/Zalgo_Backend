@@ -50,8 +50,8 @@ class RequestModelAPI(ListAPIView):
             print("Receved required Fields")
 
         name = self.request.POST.get('name','')
-        if name not in Product.objects.all().value_list('name',flat=True):
-            return ResponseFunction(0,"Invalid name for request 'name'",REQUEST_TYPES)
+        # if name not in Product.objects.all().value_list('name',flat=True):
+        #     return ResponseFunction(0,"Invalid name for request 'name'",REQUEST_TYPES)
 
 
         data = {

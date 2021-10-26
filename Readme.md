@@ -23,7 +23,7 @@ postgres=#
 sudo python manage.py shell
 from django.contrib.contenttypes.models import ContentType
 ContentType.objects.all().delete()
-
+exit()
 
 
 ###Automated Shell Script for github Fetch Simply run the file
