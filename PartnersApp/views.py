@@ -51,6 +51,14 @@ class PartnersAPI(ListAPIView):
         try:
 
             id = self.request.POST.get("id", "")
+            user = self.request.POST.get("user", "")
+            user_obj = None
+            if user:
+                user_qs = UserDetails.objects.filter(id=user)
+                if user_qs.count():
+                    user_obj = user_qs.first()
+                else:
+                    return ResponseFunction(0, "Course not found", {})
 
 
             if id:
@@ -68,7 +76,10 @@ class PartnersAPI(ListAPIView):
                 msg = "Data saved"
             serializer.is_valid(raise_exception=True)
 
-            obj = serializer.save(user=self.request.user)
+            if user:
+                obj = serializer.save(user=user_obj)
+            else:
+                obj = serializer.save()
 
             return ResponseFunction(1, msg, PartnersSerializer(obj).data)
         except Exception as e:
