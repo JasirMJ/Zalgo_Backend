@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'CountryApp',
     'BannerApp',
     'SubscriptionApp',
+    'TransactionApp',
+    'PartnersApp',
 
     'rest_framework',
     'rest_framework.authtoken',
