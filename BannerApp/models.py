@@ -10,6 +10,7 @@ class Banner(models.Model):
     file = models.FileField(null=True, blank=True)
 
     url = models.TextField(null=True)
+    is_internal = models.BooleanField(default=False)
 
 
     is_active = models.BooleanField(default=False)
