@@ -37,6 +37,7 @@ urlpatterns = [
     path('subscriptions/', include('SubscriptionApp.urls')),
     path('transactions/', include('TransactionApp.urls')),
     path('partners/', include('PartnersApp.urls')),
+    path('zalgo-accounts/', include('ZalgoAccountApp.urls')),
     path('dashboard-userapp/', UserAppDashboardAPI.as_view()),
 ]
 

@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'SubscriptionApp',
     'TransactionApp',
     'PartnersApp',
+    'ZalgoAccountApp',
 
     'rest_framework',
     'rest_framework.authtoken',
