@@ -14,7 +14,7 @@ class Banner(models.Model):
     url = models.TextField(null=True)
 
     is_internal = models.BooleanField(default=False)
-    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    product = models.ForeignKey(Product,on_delete=models.CASCADE,null=True)
 
 
     is_active = models.BooleanField(default=False)
