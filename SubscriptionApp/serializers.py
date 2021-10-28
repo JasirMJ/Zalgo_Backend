@@ -1,15 +1,12 @@
-from rest_framework import serializers
-
-from TopicApp.serializers import TopicSerializer
 from UserApp.serializers import UserSerializer
 from zalgo_BE.DynamicFieldsModel import DynamicFieldsModelSerializer
-from LessonApp.models import *
+from TopicApp.models import *
 
 
 
-class LessonUserDetailsSerializer(DynamicFieldsModelSerializer):
+class TopicUserDetailsSerializer(DynamicFieldsModelSerializer):
     class Meta:
-        model = Lesson
+        model = Topic
         fields=[
             "id",
             "username",
@@ -18,16 +15,15 @@ class LessonUserDetailsSerializer(DynamicFieldsModelSerializer):
         ]
 
 
-class LessonSerializer(DynamicFieldsModelSerializer):
-    topic = TopicSerializer(many=True)
+class TopicSerializer(DynamicFieldsModelSerializer):
     class Meta:
-        model = Lesson
+        model = Topic
         # fields = ["mobile_number", "whatsapp_number", "is_customer", "is_staff"]
         fields = "__all__"
 
-class LessonDropdownSerializer(DynamicFieldsModelSerializer):
+class TopicDropdownSerializer(DynamicFieldsModelSerializer):
     class Meta:
-        model = Lesson
+        model = Topic
         fields = ["id", "name"]
 
 

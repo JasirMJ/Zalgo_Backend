@@ -9,6 +9,33 @@ STATUS = "Status"
 MESSAGE = "Message"
 DATA = "Data"
 
+GRADE = [
+    {
+        "id":1,
+        "name":"VIP 1",
+        "business_count":1,
+        "margin":5,
+    },
+    {
+        "id":2,
+        "name":"VIP 2",
+        "business_count":10,
+        "margin":10,
+    },
+    {
+        "id":3,
+        "name":"VIP 3",
+        "business_count":25,
+        "margin":15,
+    },
+    {
+        "id":4,
+        "name":"VIP 4",
+        "business_count":50,
+        "margin":20,
+    },
+]
+
 REQUEST_TYPES = [
     "Book Product Free Trail", # product id
     "Buy Product", # product id

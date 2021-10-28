@@ -26,6 +26,8 @@ class UserDetails(AbstractUser):
     bankaccount_IFSC = models.CharField(null=True,max_length=255)
 
     vip_rank = models.CharField(null=True,max_length=10)
+    commission = models.CharField(null=True,max_length=10)
+    grade_name = models.CharField(null=True,max_length=10)
 
     wallet_balance = models.CharField(null=True,max_length=50)
     wallet_credited = models.CharField(null=True,max_length=50)
