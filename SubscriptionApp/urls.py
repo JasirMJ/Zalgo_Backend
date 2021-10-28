@@ -1,8 +1,8 @@
 from django.urls import path
 
-from TopicApp import views
+from SubscriptionApp import views
 
 urlpatterns = [
-    path('',views.TopicAPI.as_view()),
+    path('',views.SubscriptionAPI.as_view()),
 
 ]

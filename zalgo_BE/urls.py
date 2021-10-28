@@ -34,6 +34,7 @@ urlpatterns = [
     path('lesson/', include('LessonApp.urls')),
     path('topic/', include('TopicApp.urls')),
     path('notifications/', include('NotificationApp.urls')),
+    path('subscriptions/', include('SubscriptionApp.urls')),
     path('dashboard-userapp/', UserAppDashboardAPI.as_view()),
 ]
 

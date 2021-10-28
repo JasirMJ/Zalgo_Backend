@@ -1,12 +1,12 @@
 from UserApp.serializers import UserSerializer
 from zalgo_BE.DynamicFieldsModel import DynamicFieldsModelSerializer
-from TopicApp.models import *
+from SubscriptionApp.models import *
 
 
 
-class TopicUserDetailsSerializer(DynamicFieldsModelSerializer):
+class SubscriptionUserDetailsSerializer(DynamicFieldsModelSerializer):
     class Meta:
-        model = Topic
+        model = Subscription
         fields=[
             "id",
             "username",
@@ -15,15 +15,15 @@ class TopicUserDetailsSerializer(DynamicFieldsModelSerializer):
         ]
 
 
-class TopicSerializer(DynamicFieldsModelSerializer):
+class SubscriptionSerializer(DynamicFieldsModelSerializer):
     class Meta:
-        model = Topic
+        model = Subscription
         # fields = ["mobile_number", "whatsapp_number", "is_customer", "is_staff"]
         fields = "__all__"
 
-class TopicDropdownSerializer(DynamicFieldsModelSerializer):
+class SubscriptionDropdownSerializer(DynamicFieldsModelSerializer):
     class Meta:
-        model = Topic
+        model = Subscription
         fields = ["id", "name"]
 
 
