@@ -69,8 +69,8 @@ class ZalgoAccountAPI(ListAPIView):
 
         try:
             ZalgoAccount_qs = ZalgoAccount.objects.all()
-            ZalgoAccount_qs = ZalgoAccount_qs.filter(user=UserDetails.objects.get(id=self.request.data['user']))
-            if ZalgoAccount_qs.count:
+            ZalgoAccount_qs = ZalgoAccount_qs.filter(user=UserDetails.objects.get(id=self.request.data['user']) )
+            if int(ZalgoAccount_qs.count)>1:
                 return ResponseFunction(0,"User can only have one account",{})
 
             id = self.request.POST.get("id")
