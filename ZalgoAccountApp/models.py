@@ -14,9 +14,11 @@ class ZalgoAccount(models.Model):
     gender = models.CharField(max_length=10,default='male')
 
     dob = models.DateField(null=False)
-    national_id_file = models.FileField(null=False,blank=False)
+    national_id_front = models.FileField(null=True,blank=False)
+    national_id_back = models.FileField(null=True,blank=False)
     national_id = models.CharField(max_length=50,null=False,blank=False)
-    pancard_file = models.FileField(null=False, blank=False)
+    pancard_front = models.FileField(null=True, blank=False)
+    pancard_back = models.FileField(null=True, blank=False)
     parncard = models.CharField(max_length=50,null=False,blank=False)
 
     house_name = models.TextField(null=False)

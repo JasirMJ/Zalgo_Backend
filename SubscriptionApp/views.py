@@ -8,6 +8,8 @@ from zalgo_BE.GlobalFunctions import *
 from zalgo_BE.GlobalImports import *
 
 
+class CustomSubscriptionAPI(ListAPIView):
+    pass
 
 class SubscriptionAPI(ListAPIView):
 
