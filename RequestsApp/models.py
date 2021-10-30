@@ -15,7 +15,7 @@ class RequestModel(models.Model):
     amount = models.CharField(max_length=20, null=True)
 
     customer_name = models.CharField(max_length=255, null=True, blank=True)
-    account_number = models.CharField(max_length=255, null=True, blank=True) #for paid customers only
+    account_number = models.CharField(max_length=255, null=True, blank=True) # for paid customers only
     broker = models.CharField(max_length=255, null=True, blank=True)
     server = models.CharField(max_length=255, null=True, blank=True)
     phone_number = models.CharField(max_length=255, null=True, blank=True)

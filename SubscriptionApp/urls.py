@@ -4,5 +4,6 @@ from SubscriptionApp import views
 
 urlpatterns = [
     path('',views.SubscriptionAPI.as_view()),
+    path('my-subscriptions/',views.SubscriptionAPI.as_view()),
 
 ]

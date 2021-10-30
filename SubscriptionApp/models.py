@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+from ProductApp.models import Product
 from UserApp.models import UserDetails
 
 
@@ -9,6 +10,7 @@ class Subscription(models.Model):
     user  = models.ForeignKey(UserDetails,on_delete=models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    product = models.ForeignKey(Product,null=True,on_delete=models.PROTECT )
 
     subscribed_date = models.DateField(null=True)
     subscription_end_date = models.DateField(null=True)

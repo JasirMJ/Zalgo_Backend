@@ -47,9 +47,13 @@ class ZalgoAccountAPI(ListAPIView):
             "mobile",
             "gender",
             "dob",
-            "national_id_file",
+            "national_id_front",
+            "national_id_back",
             "national_id",
-            "pancard_file",
+
+            "pancard_front",
+            "pancard_back",
+
             "parncard",
             "house_name",
             "street_name",

@@ -19,7 +19,7 @@ class ZalgoAccount(models.Model):
     national_id = models.CharField(max_length=50,null=False,blank=False)
     pancard_front = models.FileField(null=True, blank=False)
     pancard_back = models.FileField(null=True, blank=False)
-    parncard = models.CharField(max_length=50,null=False,blank=False)
+    pancard = models.CharField(max_length=50,null=False,blank=False)
 
     house_name = models.TextField(null=False)
     street_name = models.CharField(max_length=50,null=False,blank=False)

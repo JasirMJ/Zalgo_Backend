@@ -9,7 +9,18 @@ from zalgo_BE.GlobalImports import *
 
 
 class CustomSubscriptionAPI(ListAPIView):
-    pass
+    def get(self, request):
+        try:
+            data = {}
+
+            data['forex robots'] = SubscriptionSerializer(Subscription.objects.filter(is_broker_image=0), many=True).data
+            data['free trail'] = SubscriptionSerializer(Subscription.objects.filter(is_broker_image=1), many=True).data
+            data['VPS Service'] = SubscriptionSerializer(Subscription.objects.filter(is_broker_image=1), many=True).data
+
+            return ResponseFunction(1, "Subscription data", data)
+        except Exception as e:
+            print("Exception Occured ", e)
+            return ResponseFunction(0, f"Exception occured {str(e)} at Line {printLineNo()}", )
 
 class SubscriptionAPI(ListAPIView):
 
