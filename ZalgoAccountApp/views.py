@@ -52,7 +52,6 @@ class ZalgoAccountAPI(ListAPIView):
             "national_id",
 
             "pancard_front",
-            "pancard_back",
 
             "parncard",
             "house_name",
