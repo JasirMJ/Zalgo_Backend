@@ -11,6 +11,8 @@ class RequestModel(models.Model):
     name = models.CharField(max_length=255,null=False, blank=True)
     user = models.ForeignKey(UserDetails,on_delete=models.CASCADE,null=False, blank=True)
     request_by = models.CharField(max_length=255, null=False, blank=True)
+    payment_status = models.CharField(max_length=20, null=True)  # success, failed
+    amount = models.CharField(max_length=20, null=True)
 
     customer_name = models.CharField(max_length=255, null=True, blank=True)
     account_number = models.CharField(max_length=255, null=True, blank=True) #for paid customers only
