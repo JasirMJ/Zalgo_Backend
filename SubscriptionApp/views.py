@@ -8,19 +8,22 @@ from zalgo_BE.GlobalFunctions import *
 from zalgo_BE.GlobalImports import *
 
 
-class CustomSubscriptionAPI(ListAPIView):
+class UserSubscriptionsAPI(ListAPIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
     def get(self, request):
         try:
             data = {}
 
-            data['forex robots'] = SubscriptionSerializer(Subscription.objects.filter(is_broker_image=0), many=True).data
-            data['free trail'] = SubscriptionSerializer(Subscription.objects.filter(is_broker_image=1), many=True).data
-            data['VPS Service'] = SubscriptionSerializer(Subscription.objects.filter(is_broker_image=1), many=True).data
+            data['forex robots'] = SubscriptionSerializer(Subscription.objects.filter(product__is_service=0,user__id=self.request.user.id), many=True).data
+            data['free trail'] = SubscriptionSerializer(Subscription.objects.filter(product__is_service=0,user__id=self.request.user.id,is_free_trail=1), many=True).data
+            data['VPS Service'] = SubscriptionSerializer(Subscription.objects.filter(product__is_service=1,user__id=self.request.user.id), many=True).data
 
             return ResponseFunction(1, "Subscription data", data)
         except Exception as e:
             print("Exception Occured ", e)
-            return ResponseFunction(0, f"Exception occured {str(e)} at Line {printLineNo()}", )
+            return ResponseFunction(0, f"Exception occured {str(e)} at Line {printLineNo()}", {})
 
 class SubscriptionAPI(ListAPIView):
 
