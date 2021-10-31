@@ -17,9 +17,10 @@ settings_list = [
     SettingsModel(data_type="NUMBER",field_name='Subscription priods in days',value="30",description="Subscripton periods for product and services",is_active=1),
     SettingsModel(data_type="NUMBER",field_name='Subscription renewal option in days',value="30",description="Subscription renewal option display with in the specified days of expiry",is_active=1),
 
-    SettingsModel(data_type="NUMBER",field_name='VIP 1 %',value="30",description="Percentage of commission value for VIP 1",is_active=1),
-    SettingsModel(data_type="NUMBER",field_name='VIP 2 %',value="30",description="Percentage of commission value for VIP 2",is_active=1),
-    SettingsModel(data_type="NUMBER",field_name='VIP # %',value="30",description="Percentage of commission value for VIP 3",is_active=1),
+    SettingsModel(data_type="NUMBER",field_name='VIP 1 %',value="5",description="Percentage of commission value for VIP 1",is_active=1),
+    SettingsModel(data_type="NUMBER",field_name='VIP 2 %',value="10",description="Percentage of commission value for VIP 2",is_active=1),
+    SettingsModel(data_type="NUMBER",field_name='VIP 3 %',value="15",description="Percentage of commission value for VIP 3",is_active=1),
+    SettingsModel(data_type="NUMBER",field_name='VIP 4 %',value="20",description="Percentage of commission value for VIP 4",is_active=1),
 
     SettingsModel(data_type="BOOLEAN",field_name='IB change option',value="true",description="if its true then IB change option will be shown in app",is_active=1),
 

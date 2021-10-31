@@ -24,3 +24,15 @@ class UserAppDashboardAPI(APIView):
         except Exception as e:
             print("Exception Occured ",e)
             return ResponseFunction(0,f"Exception occured {str(e)} at Line {printLineNo()}",)
+
+
+class GradeAPI(APIView):
+    def get(self,request):
+        try:
+            data = {}
+
+            data['grade']=GRADE
+            return ResponseFunction(1,"UserApp Dashboard data",data)
+        except Exception as e:
+            print("Exception Occured ",e)
+            return ResponseFunction(0,f"Exception occured {str(e)} at Line {printLineNo()}",)

@@ -20,7 +20,7 @@ from django.conf.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from Dashboard.views import UserAppDashboardAPI
+from Dashboard.views import UserAppDashboardAPI, GradeAPI
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -39,6 +39,7 @@ urlpatterns = [
     path('partners/', include('PartnersApp.urls')),
     path('zalgo-accounts/', include('ZalgoAccountApp.urls')),
     path('dashboard-userapp/', UserAppDashboardAPI.as_view()),
+    path('dashboard-grade/', GradeAPI.as_view()),
 ]
 
 if settings.DEBUG:
