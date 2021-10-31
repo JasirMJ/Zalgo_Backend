@@ -84,7 +84,9 @@ class SubscriptionAPI(ListAPIView):
                 msg = "Data saved"
             serializer.is_valid(raise_exception=True)
 
-            obj = serializer.save(user=self.request.user)
+            user = self.request.POST.get('user',self.request.user.id)
+
+            obj = serializer.save(user=UserDetails.objects.get(id=user))
 
             return ResponseFunction(1, msg, SubscriptionSerializer(obj).data)
         except Exception as e:
