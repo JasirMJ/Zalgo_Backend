@@ -68,10 +68,10 @@ class ZalgoAccountAPI(ListAPIView):
 
 
         try:
-            ZalgoAccount_qs = ZalgoAccount.objects.all()
-            ZalgoAccount_qs = ZalgoAccount_qs.filter(user=UserDetails.objects.get(id=self.request.data['user']) )
-            if int(ZalgoAccount_qs.count)>1:
-                return ResponseFunction(0,"User can only have one account",{})
+
+            userid = self.request.POST.get('user',self.request.user.id)
+            ZalgoAccount_qs = ZalgoAccount.objects.filter(user__id = userid )
+
 
             id = self.request.POST.get("id")
 
@@ -85,6 +85,9 @@ class ZalgoAccountAPI(ListAPIView):
                 serializer = ZalgoAccountSerializer(course_obj, data=request.data, partial=True)
                 msg = "Data updated"
             else:
+                if ZalgoAccount_qs.count():
+                    return ResponseFunction(0, "User can only have one account", {})
+
                 print("Adding new ZalgoAccount")
                 serializer = ZalgoAccountSerializer(data=request.data, partial=True)
                 msg = "Data saved"
@@ -101,23 +104,7 @@ class ZalgoAccountAPI(ListAPIView):
             print("Excepction ", printLineNo(), " : ", e)
             # print("Excepction ",type(e))
 
-            return ResponseFunction(0,f"Excepction occured {str(e)}",{})
-
-    def put(self, request):
-
-        ResponseFunction(0,"Not enabled",{})
-
-        id = self.request.POST.get("id")
-        if not id or id == "":
-            return Response({
-                STATUS: False,
-                MESSAGE: "Required object id as id"
-            })
-        serializer = ZalgoAccountSerializer(ZalgoAccount.objects.filter(id=id).first(), data=request.data, partial=True)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return ResponseFunction(1, "Data updated",{})
-
+            return ResponseFunction(0,f"Excepction occured {str(e)}: LineNo {printLineNo()}",{})
 
     def delete(self, request):
         try:
