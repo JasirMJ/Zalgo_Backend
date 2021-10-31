@@ -26,6 +26,8 @@ class RequestModelAPI(ListAPIView):
         from_date = self.request.GET.get('from_date','')
         to_date = self.request.GET.get('to_date','')
         customer = self.request.GET.get('customer','')
+        user = self.request.GET.get('user','')
+        account_number  = self.request.GET.get('account_number','')
 
         if is_dropdown=='1':
             print("Drop down get request")
@@ -36,7 +38,9 @@ class RequestModelAPI(ListAPIView):
         if id: qs = qs.filter(id=id)
         if from_date: qs = qs.filter(created_at__gte=from_date)
         if to_date: qs = qs.filter(created_at__lte=to_date)
-        if customer: qs = qs.filter(Q(user__username__icontains=customer) | Q(user__mobile=customer))
+        if user: qs = qs.filter(Q(user__username__icontains=user) | Q(user__mobile=user))
+        if customer: qs = qs.filter(Q(customer_name__icontains=customer) | Q(phone_number__icontains=customer))
+        if account_number: qs = qs.filter(Q(account_number__icontains=account_number) )
 
         return qs
 

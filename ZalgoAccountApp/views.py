@@ -81,8 +81,8 @@ class ZalgoAccountAPI(ListAPIView):
                 ZalgoAccount_qs = ZalgoAccount_qs.filter(id=id)
                 if not ZalgoAccount_qs.count():
                     return ResponseFunction(0, "ZalgoAccount Not Found", {})
-                course_obj = ZalgoAccount_qs.first()
-                serializer = ZalgoAccountSerializer(course_obj, data=request.data, partial=True)
+                za_obj = ZalgoAccount_qs.first()
+                serializer = ZalgoAccountSerializer(za_obj, data=request.data, partial=True)
                 msg = "Data updated"
             else:
                 if ZalgoAccount_qs.count():
@@ -94,7 +94,10 @@ class ZalgoAccountAPI(ListAPIView):
             serializer.is_valid(raise_exception=True)
 
             obj = serializer.save()
-
+            # ZalgoAccount_qs.update(user__is_account_holder=1)
+            user = za_obj.user
+            user.is_account_holder =1
+            user.save()
 
 
             return ResponseFunction(1, msg, ZalgoAccountSerializer(obj).data)
@@ -112,12 +115,17 @@ class ZalgoAccountAPI(ListAPIView):
             if id == "all":
 
                 ZalgoAccount.objects.all().delete()
+                UserDetails.objects.all().update(is_account_holder=0)
                 return ResponseFunction(1, "Deleted all data",{})
 
             else:
                 id = json.loads(id)
                 # print(id)
-                ZalgoAccount.objects.filter(id__in=id).delete()
+                za_qs = ZalgoAccount.objects.filter(id__in=id)
+                user_list = za_qs.values_list("user__id",flat=True)
+                # print("user_list ",list(user_list))
+                za_qs.delete()
+                UserDetails.objects.filter(id__in =  list(user_list)).update(is_account_holder=0)
                 return ResponseFunction(1, "Deleted data having id " + str(id),{})
 
         except Exception as e:

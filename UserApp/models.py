@@ -47,6 +47,7 @@ class UserDetails(AbstractUser):
     is_blocked = models.BooleanField(default=0)
     is_deleted = models.BooleanField(default=0)
     is_partner = models.BooleanField(default=0)
+    is_account_holder = models.BooleanField(default=0)
 
 
 
