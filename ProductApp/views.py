@@ -25,6 +25,8 @@ class ProductAPI(ListAPIView):
         from_date = self.request.GET.get('from_date','')
         to_date = self.request.GET.get('to_date','')
         customer = self.request.GET.get('customer','')
+        is_product = self.request.GET.get('is_product','')
+        is_service = self.request.GET.get('is_service','')
 
         if is_dropdown=='1':
             print("Drop down get Product")
@@ -33,6 +35,8 @@ class ProductAPI(ListAPIView):
         qs = Product.objects.all()
 
         if id: qs = qs.filter(id=id)
+        if is_product: qs = qs.filter(is_product=is_product)
+        if is_service: qs = qs.filter(is_service=is_service)
         if from_date: qs = qs.filter(created_at__gte=from_date)
         if to_date: qs = qs.filter(created_at__lte=to_date)
         if customer: qs = qs.filter(Q(user__username__icontains=customer) | Q(user__mobile=customer))
@@ -154,6 +158,7 @@ class SubProductAPI(ListAPIView):
         return qs
 
     def post(self, request):
+        print("Request data ",self.request.data)
         required = ["name","product"]
         validation_errors = ValidateRequest(required, self.request.data)
 
