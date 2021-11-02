@@ -40,9 +40,10 @@ class LessonAPI(ListAPIView):
 
         if course: qs = Course.objects.get(id=course).lessons.all()
 
-        return qs
+        return qs.order_by('id')
 
     def post(self, request):
+        print("Body ",self.request.data)
         required = ["name","course"]
         validation_errors = ValidateRequest(required, self.request.data)
 
@@ -80,7 +81,8 @@ class LessonAPI(ListAPIView):
             obj = serializer.save()
             course_obj.lessons.add(obj)
 
-            return ResponseFunction(1, msg, LessonSerializer(obj).data)
+
+            return ResponseFunction(1, msg, LessonSerializer(course_obj.lessons,many=True).data)
         except Exception as e:
             printLineNo()
 

@@ -12,3 +12,6 @@ class Lesson(models.Model):
     priority = models.IntegerField(null=True)
     is_active = models.BooleanField(default=True)
     topic = models.ManyToManyField(Topic)
+
+    class Meta:
+        ordering = ['id']

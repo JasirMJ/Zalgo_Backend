@@ -41,6 +41,7 @@ class TopicAPI(ListAPIView):
         return qs
 
     def post(self, request):
+        print("Receved data : ",self.request.data)
         required = ["name","lesson"]
         validation_errors = ValidateRequest(required, self.request.data)
 
