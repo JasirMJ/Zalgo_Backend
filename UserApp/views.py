@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render
+from django.utils.crypto import get_random_string
 
 from UserApp.models import *
 from UserApp.serializers import *
@@ -32,6 +33,7 @@ class UserAPI(ListAPIView):
         mobile = self.request.GET.get('mobile','')
         username = self.request.GET.get('username','')
         is_blocked = self.request.GET.get('is_blocked','')
+        referal_code = self.request.GET.get('referal_code','')
 
         if not self.request.user.is_superuser:
             print("Request not from superuser, then he get his own data only and null for anonimous users")
@@ -45,6 +47,10 @@ class UserAPI(ListAPIView):
         if mobile:qs = qs.filter(mobile=mobile)
         if username:qs = qs.filter(username__icontains=username)
         if is_blocked:qs = qs.filter(is_blocked=is_blocked)
+        if referal_code:
+            qs = qs.filter(referal_code_used=referal_code)
+            print("qs ", qs)
+            return qs
 
         return qs
 
@@ -85,12 +91,38 @@ class UserAPI(ListAPIView):
 
                     user_obj = serializer.save()
             else:
+                referal_code_used = self.request.POST.get('referal_code_used','')
+                _qs = None
+                _obj = None
+                if referal_code_used:
+                    _qs = UserDetails.objects.filter(referal_code=referal_code_used)
+                    print("User qs Referal code ",_qs)
+                    if _qs.count():
+                        _obj = _qs.first()
+                        print(f"used referal_code of {_obj.username}")
+                    else:
+                        print("Invalid Referal Code")
+                        return ResponseFunction(0,"Invalid Referal Code, They are case sensitive and must be entered exactly as they are",{})
+
                 print("Adding new UserDetails")
                 serializer = UserSerializer(data=request.data, partial=True)
                 serializer.is_valid(raise_exception=True)
                 msg = "Data saved"
                 msg = "Created New User"
-                user_obj = serializer.save(password=make_password('AYD@'+self.request.data['mobile']))
+
+
+                if _obj:
+                    _obj.referred_count =_obj.referred_count+1
+                    user_obj = serializer.save(referal_code=GenerateReferalCode(),
+                                               referal_user=_obj.username,
+                                               referal_code_used=referal_code_used,
+                                               password=make_password('AYD@' + self.request.data['mobile']))
+                    _obj.save()
+
+                else:
+                    user_obj = serializer.save(referal_code=GenerateReferalCode(),
+                                               password=make_password('AYD@' + self.request.data['mobile']))
+
 
             token, created = Token.objects.get_or_create(user=user_obj)
             # return ResponseFunction(1, msg,{})
@@ -342,3 +374,14 @@ class OTPVerification(ListAPIView):
                 }
             )
 
+
+def GenerateReferalCode():
+    referal_code = get_random_string(5)
+    user_qs = UserDetails.objects.filter(referal_code__iexact=referal_code)
+
+    if user_qs.count() > 0:
+        print("Referal code regenerating ", referal_code)
+        GenerateReferalCode()
+    else:
+        print("Referal code created ",referal_code)
+        return referal_code

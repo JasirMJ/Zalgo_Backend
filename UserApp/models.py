@@ -12,10 +12,10 @@ from django.utils import timezone
 class UserDetails(AbstractUser):
     # user = models.ForeignKey(User,on_delete=models.CASCADE)
     mobile = models.CharField(unique=True,max_length=20,null=False)
-    referal_code = models.CharField(null=True,max_length=12)
+    referal_code = models.CharField(null=True,max_length=12,unique=True)
     referal_user = models.CharField(null=True,max_length=50)
     referal_code_used = models.CharField(null=True,max_length=12)
-    referred_count = models.CharField(null=True,max_length=12)
+    referred_count = models.IntegerField(default='0',null=False)
     file = models.FileField(null=True)
 
     date_of_birth = models.DateField(null=True)
