@@ -8,6 +8,7 @@ from UserApp.models import UserDetails
 class Transaction(models.Model):
     transaction_id = models.CharField(max_length=50)
     user  = models.ForeignKey(UserDetails,on_delete=models.PROTECT)
+    username  = models.CharField(max_length=25,null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     description = models.CharField(max_length=255,null=True)

@@ -39,7 +39,8 @@ class TransactionAPI(ListAPIView):
         return qs
 
     def post(self, request):
-        required = ["name"]
+        print("request data ",request.data)
+        required = ["transaction_id"]
         validation_errors = ValidateRequest(required, self.request.data)
 
         if len(validation_errors) > 0:
