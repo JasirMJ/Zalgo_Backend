@@ -1,4 +1,6 @@
+from rest_framework import serializers
 
+from SettingsApp.models import SettingsModel
 from zalgo_BE.DynamicFieldsModel import DynamicFieldsModelSerializer
 from ProductApp.models import *
 
@@ -30,8 +32,10 @@ class ProductSerializer(DynamicFieldsModelSerializer):
 
 
 class ProductDropdownSerializer(DynamicFieldsModelSerializer):
+
     class Meta:
         model = Product
         fields = ["id", "name"]
+
 
 
