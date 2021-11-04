@@ -16,7 +16,10 @@ class UserAPI(ListAPIView):
     def get_queryset(self):
         print("Get UserAPI")
 
-
+        pagination = self.request.GET.get('pagination', '1')
+        if pagination == '0':
+            print("Pagination None")
+            self.pagination_class = None
 
         #serializer change -start
         is_dropdown = self.request.GET.get('is_dropdown', '0')

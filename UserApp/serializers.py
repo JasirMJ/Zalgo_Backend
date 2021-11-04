@@ -25,7 +25,7 @@ class UserSerializer(DynamicFieldsModelSerializer):
 class UserDetailsDropdownSerializer(DynamicFieldsModelSerializer):
     class Meta:
         model = UserDetails
-        fields="__all__"
+        fields=['id','username']
 
 class UserAppSerializer(DynamicFieldsModelSerializer):
     class Meta:

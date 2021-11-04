@@ -27,7 +27,7 @@ class BannerAPI(ListAPIView):
             # serializer change -start
             is_dropdown = self.request.GET.get('is_dropdown', '0')
             is_user_app = self.request.GET.get('is_user_app', '0')
-            hero_banner = self.request.GET.get('hero_banner', '')
+            is_broker_image = self.request.GET.get('is_broker_image', '')
             exclude_item  = json.loads(self.request.GET.get('exclude_item','[]'))
             name = self.request.GET.get('name')
             type = self.request.GET.get('type',"")
@@ -51,8 +51,8 @@ class BannerAPI(ListAPIView):
 
             if type:
                 qs = qs.filter(type=type)
-            if hero_banner:
-                qs = qs.filter(hero_banner=hero_banner)
+            if is_broker_image:
+                qs = qs.filter(is_broker_image=is_broker_image)
 
             if len(exclude_item): qs = qs.exclude(id__in=exclude_item)
 
@@ -78,9 +78,9 @@ class BannerAPI(ListAPIView):
 
         try:
             type_list = ["hero","broker"]
-            type = self.request.POST['type']
-            if type not in type_list:
-                return ResponseFunction(0,"type must be one of "+str(type_list),{})
+            # type = self.request.POST['type']
+            # if type not in type_list:
+            #     return ResponseFunction(0,"type must be one of "+str(type_list),{})
             id = self.request.POST.get("id", "")
             if id:
                 print("Banner Updating")
