@@ -39,6 +39,7 @@ class ZalgoAccountAPI(ListAPIView):
         return qs
 
     def post(self, request):
+        print("request data ",self.request.data)
         required = [
             "first_name",
             "last_name",
@@ -95,8 +96,8 @@ class ZalgoAccountAPI(ListAPIView):
 
             obj = serializer.save()
             # ZalgoAccount_qs.update(user__is_account_holder=1)
-            user = za_obj.user
-            user.is_account_holder =1
+            user = obj.user
+            user.is_account_holder = 1
             user.save()
 
 
