@@ -54,7 +54,7 @@ class ZalgoAccountAPI(ListAPIView):
 
             "pancard_front",
 
-            "parncard",
+            "pancard",
             "house_name",
             "street_name",
             "pincode",

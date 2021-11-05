@@ -32,6 +32,14 @@ settings_list = [
     # SettingsModel(data_type="TEXT",field_name='extra_charge_description',value="Due to heavy rain",description="Extra charge description",is_active=1),
     # SettingsModel(data_type="BOOLEAN",field_name='prescription_box',value="true",description="if its true then prescription box will be enabled",is_active=1),
     # SettingsModel(data_type="ARRAY",field_name='prescription_box_pin',value="679321,145512,512341",description="prescription box will be available at specified pin codes only",is_active=1),
+
+    SettingsModel(data_type="TEXT", field_name='onesignal_app_id', value="8b97c9bb-8bd0-47cd-baec-05eee09b5cd6",
+                  description="Used to send notification to the users", is_active=1),
+
+    SettingsModel(data_type="TEXT", field_name='onesignal_rest_api_key',
+                  value="ZThhZGZmOTQtMzE1ZC00MjNkLThhOGMtYzA3YTJjNjk1YzM0",
+                  description="Used to send notification to the users", is_active=1),
+
 ]
 
 

@@ -17,6 +17,7 @@ class ZalgoAccount(models.Model):
     national_id_front = models.FileField(null=True,blank=False)
     national_id_back = models.FileField(null=True,blank=False)
     national_id = models.CharField(max_length=50,null=False,blank=False)
+
     pancard_front = models.FileField(null=True, blank=False)
     pancard_back = models.FileField(null=True, blank=False)
     pancard = models.CharField(max_length=50,null=False,blank=False)
