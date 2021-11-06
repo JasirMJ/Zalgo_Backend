@@ -14,5 +14,6 @@ class Partners(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     file = models.FileField(null=True)
     description = models.CharField(max_length=255,null=True)
+    vip_rank = models.CharField(max_length=20,null=True)
 
 

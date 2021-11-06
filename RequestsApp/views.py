@@ -42,7 +42,7 @@ class RequestModelAPI(ListAPIView):
         if customer: qs = qs.filter(Q(customer_name__icontains=customer) | Q(phone_number__icontains=customer))
         if account_number: qs = qs.filter(Q(account_number__icontains=account_number) )
 
-        return qs
+        return qs.order_by('-id')
 
     def post(self, request):
         required = ["name"]
