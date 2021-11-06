@@ -21,8 +21,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from Dashboard.views import UserAppDashboardAPI, GradeAPI
+from zalgo_BE.views import index
 
 urlpatterns = [
+    path('',index,name='index'),
     path('admin/', admin.site.urls),
     path('users/', include('UserApp.urls')),
     path('settings/', include('SettingsApp.urls')),
