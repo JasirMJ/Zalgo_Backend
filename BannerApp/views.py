@@ -56,7 +56,7 @@ class BannerAPI(ListAPIView):
 
             if len(exclude_item): qs = qs.exclude(id__in=exclude_item)
 
-            return qs
+            return qs.order_by('-id')
         except Exception as e:
             print(f"{str(e)} LineNo : {printLineNo()}")
             return Banner.objects.none()

@@ -36,7 +36,7 @@ class ZalgoAccountAPI(ListAPIView):
         if course_code: qs = qs.filter(course_code=course_code)
 
 
-        return qs
+        return qs.order_by('-id')
 
     def post(self, request):
         print("request data ",self.request.data)

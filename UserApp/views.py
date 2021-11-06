@@ -53,9 +53,9 @@ class UserAPI(ListAPIView):
         if referal_code:
             qs = qs.filter(referal_code_used=referal_code)
             print("qs ", qs)
-            return qs
+            return qs.order_by('-id')
 
-        return qs
+        return qs.order_by('-id')
 
     def post(self, request):
         user_obj = ""

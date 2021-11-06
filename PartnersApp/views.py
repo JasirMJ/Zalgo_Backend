@@ -36,7 +36,7 @@ class PartnersAPI(ListAPIView):
         if name: qs = qs.filter(name__icontains=name)
         if topic_code: qs = qs.filter(topic_code=topic_code)
 
-        return qs
+        return qs.order_by('-id')
 
     def post(self, request):
         required = ["name"]
