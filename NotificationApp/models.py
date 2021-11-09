@@ -1,6 +1,8 @@
 from django.db import models
 
 # Create your models here.
+from UserApp.models import UserDetails
+
 
 class Notification(models.Model):
     name = models.CharField(max_length=255,null=False, blank=True)
@@ -17,5 +19,8 @@ class Notification(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-
+class UserNotificationStatus(models.Model):
+    user = models.ForeignKey(UserDetails,on_delete=models.CASCADE)
+    notification = models.ForeignKey(Notification, on_delete=models.CASCADE)
+    read = models.BooleanField(default=False)
 

@@ -50,7 +50,7 @@ class NotificationAPI(ListAPIView):
 
             if len(exclude_item): qs = qs.exclude(id__in=exclude_item)
 
-            return qs
+            return qs.order_by('-id')
         except Exception as e:
             print(f"{str(e)} LineNo : {printLineNo()}")
             return Notification.objects.none()
@@ -115,7 +115,7 @@ class NotificationAPI(ListAPIView):
             return ResponseFunction(0, "keyword value must be in " + str(list_keyword), {})
 
         msg = "Nothing happent"
-
+        print("Keyword ",keyword)
         try:
             if keyword == "mark_as_read":
                 id_list = self.request.POST["id_list"]
@@ -125,13 +125,35 @@ class NotificationAPI(ListAPIView):
                 print("Wishlist ",id_list)
                 print("self.request.user ",self.request.user)
                 print("Wishlist ",id_list)
-                _qs = Notification.objects.filter(user_id=self.request.user.id,id__in=id_list).update(read=1)
+                # _qs = Notification.objects.filter(user_id=self.request.user.id,id__in=id_list).update(read=1)
+
+                Notification_List = []
+                for x in id_list:
+
+                    Notification_List.append(
+                        UserNotificationStatus(user=self.request.user, notification_id=x,read=1)
+                    )
+                UserNotificationStatus.objects.bulk_create(Notification_List)
                 msg = "Notification marked as read"
 
                 return ResponseFunction(1, msg, {"Note":"API need to be called else pagination issue occures"})
 
             if keyword == "read_all":
-                _qs = Notification.objects.filter(user_id=self.request.user.id).update(read=1)
+                # _qs = Notification.objects.filter(user_id=self.request.user.id).update(read=1)
+
+                #  get my unread notifications
+                unread_qs = UserNotificationStatus.objects.filter(user=self.request.user,read=0).values_list("notification_id",flat=1)
+                unread_qs_ids = list(unread_qs)
+                print("All unread notification id list ",unread_qs_ids)
+
+                _qs = Notification.objects.all().exclude(id__in=unread_qs_ids)
+
+                Notification_List = []
+                for x in _qs:
+                    Notification_List.append(
+                        UserNotificationStatus(user=self.request.user, notification=x, read=1)
+                    )
+                UserNotificationStatus.objects.bulk_create(Notification_List)
                 msg = "Marked all notification as read"
 
                 return ResponseFunction(1, msg, {"unread": 0})
