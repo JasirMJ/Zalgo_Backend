@@ -37,6 +37,7 @@ class UserAPI(ListAPIView):
         username = self.request.GET.get('username','')
         is_blocked = self.request.GET.get('is_blocked','')
         referal_code = self.request.GET.get('referal_code','')
+        my_self = self.request.GET.get('my_self', '')
 
         if not self.request.user.is_superuser:
             print("Request not from superuser, then he get his own data only and null for anonimous users")
@@ -50,6 +51,7 @@ class UserAPI(ListAPIView):
         if mobile:qs = qs.filter(mobile=mobile)
         if username:qs = qs.filter(username__icontains=username)
         if is_blocked:qs = qs.filter(is_blocked=is_blocked)
+        if my_self:qs = qs.filter(id=self.request.user.id)
         if referal_code:
             qs = qs.filter(referal_code_used=referal_code)
             print("qs ", qs)
