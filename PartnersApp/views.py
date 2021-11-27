@@ -78,6 +78,8 @@ class PartnersAPI(ListAPIView):
 
             if user:
                 obj = serializer.save(user=user_obj)
+                user_obj.is_partner = 1
+                user_obj.save()
             else:
                 obj = serializer.save()
 
