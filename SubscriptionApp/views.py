@@ -88,7 +88,14 @@ class SubscriptionAPI(ListAPIView):
             # print("User_id ",user_id)
 
             # updating = True # [False,True] Business logic apply only on new subscription, Test case passed
-            user = setBusinessLogic(user_id,product=request.data.get('product',''),sub_product=request.data.get('sub_product',''),updating=updating) #not considering free trail or not
+            print("Free trail ", request.data.get('is_free_trail',''))
+            user = setBusinessLogic(
+                user_id,
+                is_free_trail=request.data.get('is_free_trail',''),
+                product=request.data.get('product',''),
+                sub_product=request.data.get('sub_product',''),
+                updating=updating
+            ) #not considering free trail or not
 
             obj = serializer.save(user=user)
 
@@ -131,10 +138,17 @@ def setBusinessLogic(user_id,**kwargs):
 
 
     updating = kwargs.get('updating')
+    is_free_trail = kwargs.get('is_free_trail')
+    print("Free trail ",is_free_trail)
+    print("Free trail ",type(is_free_trail))
     print("Updation status ",updating)
     if updating:
         print("No Business logic on updation")
         return user_obj
+    if is_free_trail=="1":
+        print("No Business logic on Free trail")
+        return user_obj
+
     # pid = "" # with out product test case passed
 
     referal_code_used = user_obj.referal_code_used
