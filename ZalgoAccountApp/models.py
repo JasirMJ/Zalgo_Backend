@@ -27,3 +27,5 @@ class ZalgoAccount(models.Model):
     pincode = models.CharField(max_length=10,null=False,blank=False)
     city = models.CharField(max_length=50,null=False,blank=False)
 
+    is_verified = models.BooleanField(default=False)
+
