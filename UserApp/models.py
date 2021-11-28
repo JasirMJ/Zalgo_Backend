@@ -30,9 +30,9 @@ class UserDetails(AbstractUser):
     commission = models.CharField(null=True,max_length=10)
     grade_name = models.CharField(null=True,max_length=10)
 
-    wallet_balance = models.CharField(null=True,max_length=50)
-    wallet_credited = models.CharField(null=True,max_length=50)
-    wallet_withdraw = models.CharField(null=True,max_length=50)
+    wallet_balance = models.FloatField(default=0.0)
+    wallet_credited = models.FloatField(default=0.0)
+    wallet_withdraw = models.FloatField(default=0.0)
 
     player_id = models.CharField(null=True,max_length=200)
 

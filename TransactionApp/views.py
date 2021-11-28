@@ -72,14 +72,18 @@ class TransactionAPI(ListAPIView):
             user = UserDetails.objects.get(id=user_id)
 
             if keyword == "withdrawal request":
-                print("Withdrawal")
-                user.wallet_balance = float(user.wallet_balance) + float(self.request.POST['amount_out'])
-                user.wallet_withdraw = user.wallet_withdraw
+                print(f"Withdrawal userbalance {user.wallet_balance} , receiving amount {self.request.POST['amount_out']}")
+                if user.wallet_balance >= float(self.request.POST['amount_out']):
+                    user.wallet_balance = float(user.wallet_balance) - float(self.request.POST['amount_out'])
+                    user.wallet_withdraw = user.wallet_withdraw + float(self.request.POST['amount_out'])
+                else:
+                    return ResponseFunction(0,f"Do not have enough funds, Available fund is {user.wallet_balance}",{})
             if keyword == "deposit request":
                 print("Deposit")
-                user.wallet_credited = user.wallet_credited
-
-            user.wallet_balance = user.wallet_balance
+                user.wallet_balance = float(user.wallet_balance) + float(self.request.POST['amount_in'])
+                user.wallet_credited = user.wallet_credited + float(self.request.POST['amount_in'])
+            print("User ",user)
+            user.save()
 
             obj = serializer.save(user=user)
 
