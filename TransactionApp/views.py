@@ -52,7 +52,7 @@ class TransactionAPI(ListAPIView):
             id = self.request.POST.get("id", "")
             keyword = self.request.POST.get("keyword", "")
             if id:
-                # return ResponseFunction(0, "Transaction cannot update", {})
+                return ResponseFunction(0, "Transaction cannot update", {})
                 print("Transaction Updating")
                 Transaction_qs = Transaction.objects.filter(id=id)
                 if not Transaction_qs.count():
