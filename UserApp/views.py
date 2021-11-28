@@ -18,7 +18,7 @@ class UserAPI(ListAPIView):
 
         pagination = self.request.GET.get('pagination', '1')
         if pagination == '0':
-            print("Pagination None")
+            # print("Pagination None")
             self.pagination_class = None
 
         #serializer change -start
@@ -40,8 +40,7 @@ class UserAPI(ListAPIView):
         my_self = self.request.GET.get('my_self', '')
 
         if not self.request.user.is_superuser:
-            print("Request not from superuser, then he get his own data only and null for anonimous users")
-
+            # print("Request not from superuser, then he get his own data only and null for anonimous users")
             return UserDetails.objects.filter(username=self.request.user.username)
 
 
@@ -54,7 +53,7 @@ class UserAPI(ListAPIView):
         if my_self:qs = qs.filter(id=self.request.user.id)
         if referal_code:
             qs = qs.filter(referal_code_used=referal_code)
-            print("qs ", qs)
+            # print("qs ", qs)
             return qs.order_by('-id')
 
         return qs.order_by('-id')
@@ -93,7 +92,6 @@ class UserAPI(ListAPIView):
                     user_obj = serializer.save(password=make_password(password))
                 else:
                     msg="User details updated"
-
                     user_obj = serializer.save()
             else:
                 referal_code_used = self.request.POST.get('referal_code_used','')
@@ -122,7 +120,7 @@ class UserAPI(ListAPIView):
                                                referal_user=_obj.username,
                                                referal_code_used=referal_code_used,
                                                password=make_password('AYD@' + self.request.data['mobile']))
-                    _obj.save()
+                    _obj.save() # saving referred_count after updating
 
                 else:
                     user_obj = serializer.save(referal_code=GenerateReferalCode(),

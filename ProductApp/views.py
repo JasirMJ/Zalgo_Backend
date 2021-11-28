@@ -17,7 +17,7 @@ class ProductAPI(ListAPIView):
     def get_queryset(self):
         pagination = self.request.GET.get('pagination', '1')
         if pagination == '0':
-            print("Pagination None")
+            # print("Pagination None")
             self.pagination_class = None
 
         id = self.request.GET.get('id', '')
@@ -27,14 +27,17 @@ class ProductAPI(ListAPIView):
         customer = self.request.GET.get('customer','')
         is_product = self.request.GET.get('is_product','')
         is_service = self.request.GET.get('is_service',0)
+        is_subscribable = self.request.GET.get('is_subscribable','')
 
         if is_dropdown=='1':
-            print("Drop down get Product")
+            # print("Drop down get Product")
             self.serializer_class = ProductDropdownSerializer
 
         qs = Product.objects.all()
+        # qs = Product.objects.filter(is_subscribable=1)
 
         if id: qs = qs.filter(id=id)
+        if is_subscribable: qs = qs.filter(is_subscribable=is_subscribable)
         if is_product: qs = qs.filter(is_product=is_product)
         # if is_service: qs = qs.filter(is_service=is_service)
         if from_date: qs = qs.filter(created_at__gte=from_date)

@@ -58,12 +58,12 @@ def defaultSettings(snapshot):
             if snap.field_name==settings.field_name:
                 found = 1
                 new_settings.append(snap)
-                print("added old ", snap.field_name)
+                # print("added old ", snap.field_name)
         if not found:
-            print("added new ",settings.field_name)
+            # print("added new ",settings.field_name)
             new_settings.append(settings)
 
-    print("New items added ",len(new_settings))
+    # print("New items added ",len(new_settings))
     SettingsModel.objects.bulk_create(new_settings)
     return 1
 
@@ -77,7 +77,7 @@ class SettingsAPI(ListAPIView):
 
         pagination = self.request.GET.get('pagination', '1')
         if pagination == '0':
-            print("Pagination None")
+            # print("Pagination None")
             self.pagination_class = None
 
         # SettingsModel.objects.all().delete()
@@ -85,10 +85,10 @@ class SettingsAPI(ListAPIView):
 
         queryset = SettingsModel.objects.all()
         # return queryset
-        print("QS Count ",queryset.count())
-        print("Static list  Count ",len(settings_list))
+        # print("QS Count ",queryset.count())
+        # print("Static list  Count ",len(settings_list))
         if queryset.count() != len(settings_list):
-            print("Settings list count mismatch refreshing settings")
+            # print("Settings list count mismatch refreshing settings")
             snapshot = []
 
             for settings in SettingsModel.objects.all():
@@ -99,16 +99,16 @@ class SettingsAPI(ListAPIView):
         else:
             print("Settings are uptodate")
         qs = SettingsModel.objects.all()
-        print("Settings Updated")
+        # print("Settings Updated")
 
         if len(field_name_list):
-            print("field_name list ")
+            # print("field_name list ")
             qs = qs.filter(field_name__in=field_name_list)
 
         return qs.order_by("-id")
 
     def post(self, request):
-        print("data ",self.request.data)
+        # print("data ",self.request.data)
         required = ["field_name","value"]
         validation_errors = ValidateRequest(required, self.request.data)
 

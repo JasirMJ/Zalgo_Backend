@@ -48,14 +48,11 @@ class TransactionAPI(ListAPIView):
         else:
             print("Receved required Fields")
 
-
         try:
-
             id = self.request.POST.get("id", "")
-
-
+            keyword = self.request.POST.get("keyword", "")
             if id:
-
+                # return ResponseFunction(0, "Transaction cannot update", {})
                 print("Transaction Updating")
                 Transaction_qs = Transaction.objects.filter(id=id)
                 if not Transaction_qs.count():
@@ -63,13 +60,28 @@ class TransactionAPI(ListAPIView):
                 transaction_obj = Transaction_qs.first()
                 serializer = TransactionSerializer(transaction_obj, data=request.data, partial=True)
                 msg = "Data updated"
+
             else:
                 print("Adding new Transaction")
                 serializer = TransactionSerializer(data=request.data, partial=True)
                 msg = "Data saved"
-            serializer.is_valid(raise_exception=True)
 
-            obj = serializer.save(user=self.request.user)
+            serializer.is_valid(raise_exception=True)
+            user_id =self.request.POST['user']
+            print("User ",user_id)
+            user = UserDetails.objects.get(id=user_id)
+
+            if keyword == "withdrawal request":
+                print("Withdrawal")
+                user.wallet_balance = float(user.wallet_balance) + float(self.request.POST['amount_out'])
+                user.wallet_withdraw = user.wallet_withdraw
+            if keyword == "deposit request":
+                print("Deposit")
+                user.wallet_credited = user.wallet_credited
+
+            user.wallet_balance = user.wallet_balance
+
+            obj = serializer.save(user=user)
 
             return ResponseFunction(1, msg, TransactionSerializer(obj).data)
         except Exception as e:

@@ -9,18 +9,19 @@ from ProductApp.models import *
 class ProductUserDetailsSerializer(DynamicFieldsModelSerializer):
     class Meta:
         model = UserDetails
-        fields=[
-            "id",
-            "username",
-            "email",
-            "mobile",
-        ]
+        fields=["id","username","email","mobile",]
 
 class SubProductSerializer(DynamicFieldsModelSerializer):
     class Meta:
         model = SubProduct
         # fields = ["mobile_number", "whatsapp_number", "is_customer", "is_staff"]
         fields = "__all__"
+
+class SubProductMinSerializer(DynamicFieldsModelSerializer):
+    class Meta:
+        model = SubProduct
+        # fields = ["mobile_number", "whatsapp_number", "is_customer", "is_staff"]
+        fields = ["id","name","price"]
 
 
 class ProductSerializer(DynamicFieldsModelSerializer):
@@ -32,10 +33,10 @@ class ProductSerializer(DynamicFieldsModelSerializer):
 
 
 class ProductDropdownSerializer(DynamicFieldsModelSerializer):
-
+    sub_product = SubProductMinSerializer(many=True)
     class Meta:
         model = Product
-        fields = ["id", "name"]
+        fields = ["id","name","price","sub_product"]
 
 
 

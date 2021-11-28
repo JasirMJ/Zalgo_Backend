@@ -16,6 +16,7 @@ class PartnersAPI(ListAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
+
         pagination = self.request.GET.get('pagination', '1')
         if pagination == '0':
             print("Pagination None")
@@ -23,6 +24,7 @@ class PartnersAPI(ListAPIView):
 
         id = self.request.GET.get('id', '')
         is_dropdown = self.request.GET.get('is_dropdown', False)
+        is_hidden = self.request.GET.get('is_hidden', False)
         name = self.request.GET.get('name','')
         topic_code = self.request.GET.get('topic_code','')
 
@@ -35,6 +37,7 @@ class PartnersAPI(ListAPIView):
         if id: qs = qs.filter(id=id)
         if name: qs = qs.filter(name__icontains=name)
         if topic_code: qs = qs.filter(topic_code=topic_code)
+        if is_hidden: qs = qs.filter(is_hidden=is_hidden)
 
         return qs.order_by('-id')
 

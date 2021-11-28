@@ -16,6 +16,7 @@ class TransactionUserDetailsSerializer(DynamicFieldsModelSerializer):
 
 
 class TransactionSerializer(DynamicFieldsModelSerializer):
+
     class Meta:
         model = Transaction
         # fields = ["mobile_number", "whatsapp_number", "is_customer", "is_staff"]

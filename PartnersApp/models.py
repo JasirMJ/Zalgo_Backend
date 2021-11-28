@@ -15,5 +15,6 @@ class Partners(models.Model):
     file = models.FileField(null=True)
     description = models.CharField(max_length=255,null=True)
     vip_rank = models.CharField(max_length=20,null=True)
+    is_hidden = models.BooleanField(default=False)
 
 

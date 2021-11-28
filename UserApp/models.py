@@ -10,13 +10,14 @@ from django.utils import timezone
 
 
 class UserDetails(AbstractUser):
-    # user = models.ForeignKey(User,on_delete=models.CASCADE)
     mobile = models.CharField(unique=True,max_length=20,null=False)
     referal_code = models.CharField(null=True,max_length=12,unique=True)
     referal_user = models.CharField(null=True,max_length=50)
     referal_code_used = models.CharField(null=True,max_length=12)
     referred_count = models.IntegerField(default='0',null=False)
     file = models.FileField(null=True)
+
+    business_count = models.IntegerField(null=True,default=0)
 
     date_of_birth = models.DateField(null=True)
 
@@ -33,17 +34,8 @@ class UserDetails(AbstractUser):
     wallet_credited = models.CharField(null=True,max_length=50)
     wallet_withdraw = models.CharField(null=True,max_length=50)
 
-
-
-
     player_id = models.CharField(null=True,max_length=200)
 
-    # address_id = models.CharField(max_length=100,null=True)
-    # address_txt = models.CharField(max_length=100,null=True)
-    # pin = models.CharField(max_length=10,null=True)
-    # latitude = models.CharField(max_length=100,null=True)
-    # longitude = models.CharField(max_length=100,null=True)
-    # is_active = models.BooleanField(default=1)
     is_blocked = models.BooleanField(default=0)
     is_deleted = models.BooleanField(default=0)
     is_partner = models.BooleanField(default=0)

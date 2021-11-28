@@ -25,6 +25,7 @@ class Product(models.Model):
 
     is_product = models.BooleanField(default=False)
     is_service = models.BooleanField(default=False)
+    is_subscribable = models.BooleanField(default=False)
 
     is_free_trail = models.BooleanField(default=False)
 
