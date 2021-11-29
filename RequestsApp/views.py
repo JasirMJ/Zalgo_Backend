@@ -67,6 +67,11 @@ class RequestModelAPI(ListAPIView):
             "available_at": self.request.POST.get('available_at',''),
             "customer_name": self.request.POST.get('customer_name',''),
             "account_number":  self.request.POST.get('account_number',''),
+
+            "productId":  self.request.POST.get('productId',''),
+            "subproductId":  self.request.POST.get('subproductId',''),
+            "subscriptionId":  self.request.POST.get('subscriptionId',''),
+
             "broker":  self.request.POST.get('broker',''),
             "server":  self.request.POST.get('server',''),
             "phone_number":  self.request.POST.get('phone_number',''),

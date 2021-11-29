@@ -47,6 +47,7 @@ REQUEST_TYPES = [
     "IB Change Request",
     "Become our partner Request",
     "Request for payout",  #found
+    "Renew Product",
 ]
 #
 # FANCY_WORDS = [

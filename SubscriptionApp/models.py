@@ -18,5 +18,7 @@ class Subscription(models.Model):
     subscribed_date = models.DateField(null=True)
     subscription_end_date = models.DateField(null=True)
 
+    # subscriptionId = models.CharField(max_length=50,null=True)
+
     class Meta:
         unique_together = [['user','product','sub_product','is_free_trail']]

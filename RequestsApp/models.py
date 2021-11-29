@@ -9,7 +9,7 @@ CHOICES =[
 
 class RequestModel(models.Model):
     name = models.CharField(max_length=255,null=False, blank=True)
-    available_at = models.TextField(null=True)
+    available_at = models.TextField(null=True, blank=True)
     user = models.ForeignKey(UserDetails,on_delete=models.CASCADE,null=False, blank=True)
     request_by = models.CharField(max_length=255, null=False, blank=True)
     payment_status = models.CharField(max_length=20, null=True)  # success, failed
@@ -28,6 +28,9 @@ class RequestModel(models.Model):
     is_paid = models.BooleanField(default=False)
     is_free_trail = models.BooleanField(default=False)
 
+    productId = models.CharField(max_length=255, null=True, blank=True)
+    subproductId = models.CharField(max_length=255, null=True, blank=True)
+    subscriptionId = models.CharField(max_length=50,null=True, blank=True)
 
 
 
