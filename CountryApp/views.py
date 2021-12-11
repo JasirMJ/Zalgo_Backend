@@ -35,7 +35,7 @@ class CountryAPI(ListAPIView):
         if name: qs = qs.filter(name__icontains=name)
         if country_code: qs = qs.filter(country_code=country_code)
 
-        return qs.order_by('-id')
+        return qs.order_by('id')
 
     def post(self, request):
         required = ["name","country_code"]
