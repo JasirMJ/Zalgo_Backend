@@ -208,6 +208,7 @@ def setBusinessLogic(user_id,**kwargs):
                         # percentage of price added to referer wallet
                         commission_amount = (price) * grade_obj['margin']/100
                         referer_obj.wallet_credited = float(referer_obj.wallet_credited) + commission_amount
+                        referer_obj.wallet_balance = float(referer_obj.wallet_balance) + commission_amount
                         print(f"Referer Walelt Updated by +{commission_amount} ie +{grade_obj['margin']}%({price})  | Total Balance : ",referer_obj.wallet_credited)
 
 
