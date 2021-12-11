@@ -15,7 +15,7 @@ class Transaction(models.Model):
     status = models.CharField(max_length=20,null=True) #success, failed
 
     product = models.ForeignKey(Product,on_delete=models.SET_NULL,null=True)
-    product_name = models.CharField(max_length=25,null=True)
+    product_name = models.CharField(max_length=255,null=True)
 
     amount_in = models.FloatField(null=True)
     amount_out = models.FloatField(null=True)
