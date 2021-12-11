@@ -33,10 +33,12 @@ class SubscriptionSerializer(DynamicFieldsModelSerializer):
                 sub_obj = sub_qs
                 pdt_data['id'] = sub_obj.id
                 pdt_data['name'] = sub_obj.name
+                pdt_data['price'] = sub_obj.price
                 pdt_data['image'] = sub_obj.file.url
             else:
                 pdt_data['id'] = obj.product.id
                 pdt_data['name'] = obj.product.name
+                pdt_data['price'] = obj.product.price
                 pdt_data['image'] = obj.product.file.url
 
             print(obj.product.file)
