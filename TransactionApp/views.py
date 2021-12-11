@@ -72,7 +72,7 @@ class TransactionAPI(ListAPIView):
             user = UserDetails.objects.get(id=user_id)
 
             if keyword == "withdrawal request":
-                print(f"Withdrawal userbalance {user.wallet_balance} , receiving amount {self.request.POST['amount_out']}")
+                print(f"Withdrawal userbalance {user.wallet_balance} , paying amount {self.request.POST['amount_out']}")
                 if user.wallet_balance >= float(self.request.POST['amount_out']):
                     user.wallet_balance = float(user.wallet_balance) - float(self.request.POST['amount_out'])
                     user.wallet_withdraw = user.wallet_withdraw + float(self.request.POST['amount_out'])
