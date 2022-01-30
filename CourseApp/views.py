@@ -1,3 +1,4 @@
+from ast import keyword
 from django.shortcuts import render
 
 # Create your views here.
@@ -119,4 +120,94 @@ class CourseAPI(ListAPIView):
                     "line_no": printLineNo()
                 }
             )
+
+class CoursePurchaseHistoryAPI(ListAPIView):
+
+    serializer_class = CoursePurchaseHistorySerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def get(self,request):
+        print("Request user ",self.request.user)
+
+        for x in Token.objects.all():
+            print("user  ",x.user.id,':',x.user," : Token",x.key)
+
+        keyword = self.request.GET.get('keyword','my_course')
+
+
+        qs = CoursePurchaseHistory.objects.all()
+
+        if keyword == 'my_course':
+            qs = qs.filter(user=self.request.user)
+            print("My course 1 ",qs)
+            qs = qs.values_list('course', flat=True).distinct()
+            print("My course 2 ",list(qs))
+            return ResponseFunction(1, "Available courses for the user are ", list(qs))
+        
+        return ResponseFunction(1, "Success", {})
+
+    def post(self, request):
+        required = ["user","course","transaction_id","amount"]
+
+        validation_errors = ValidateRequest(required, self.request.data)
+
+        if len(validation_errors) > 0:
+            return ResponseFunction(0, validation_errors[0]['error'],{})
+        else:
+            print("Receved required Fields")
+
+
+        try:
+
+            id = self.request.POST.get("id")
+            user = self.request.POST.get("user",self.request.user.id)
+            course = self.request.POST.get("course","")
+
+            dup_qs = CoursePurchaseHistory.objects.filter(Q(user=user)&Q(course=course))
+            if dup_qs.count():
+                print("Duplicate entry found ")
+                print("data : ",self.request.data)
+                return ResponseFunction(0, "Duplicate entry", {})
+
+            if user:
+                user_qs = UserDetails.objects.filter(id=user)
+                if user_qs.count() == 0:
+                    return ResponseFunction(0, "User Not Found", {})
+                else:
+                    user_obj = user_qs.first()
+            
+            if course:
+                course_qs = Course.objects.filter(id=course)
+                if  course_qs.count() == 0:
+                    return ResponseFunction(0, "Course Not Found", {})
+                else:
+                    course_obj = course_qs.first()
+
+                
+
+            if id:
+                print("Course Purchase History Updating")
+                CoursePurchaseHistory_qs = CoursePurchaseHistory.objects.filter(id=id)
+                if not CoursePurchaseHistory_qs.count():
+                    return ResponseFunction(0, "Course Purchase History Not Found", {})
+                course_obj = CoursePurchaseHistory_qs.first()
+                serializer = CoursePurchaseHistorySerializer(course_obj, data=request.data, partial=True)
+                msg = "Data updated"
+            else:
+                print("Adding new Course Purchase History")
+                serializer = CoursePurchaseHistorySerializer(data=request.data, partial=True)
+                msg = "Data saved"
+            serializer.is_valid(raise_exception=True)
+
+            obj = serializer.save(user=user_obj,course=course_obj)
+
+            return ResponseFunction(1, msg, CoursePurchaseHistorySerializer(obj).data)
+        except Exception as e:
+            printLineNo()
+
+            print("Excepction ", printLineNo(), " : ", e)
+            # print("Excepction ",type(e))
+
+            return ResponseFunction(0,f"Excepction occured {str(e)}",{})
 

@@ -379,6 +379,7 @@ class OTPVerification(ListAPIView):
 
 
 def GenerateReferalCode():
+    
     referal_code = get_random_string(8)
     user_qs = UserDetails.objects.filter(referal_code__iexact=referal_code)
 

@@ -29,4 +29,7 @@ class CourseDropdownSerializer(DynamicFieldsModelSerializer):
         fields = ["id", "name"]
 
 
-
+class CoursePurchaseHistorySerializer(DynamicFieldsModelSerializer):
+    class Meta:
+        model = CoursePurchaseHistory
+        fields = "__all__"
