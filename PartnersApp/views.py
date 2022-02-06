@@ -42,6 +42,7 @@ class PartnersAPI(ListAPIView):
         return qs.order_by('-id')
 
     def post(self, request):
+        # print("Request Data ",request.data)
         required = ["name"]
         validation_errors = ValidateRequest(required, self.request.data)
 

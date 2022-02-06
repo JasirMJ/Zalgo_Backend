@@ -3,7 +3,8 @@ import sys
 
 from rest_framework.response import Response
 import requests
-
+from django.utils import timezone
+from datetime import datetime
 
 STATUS = "Status"
 MESSAGE = "Message"
@@ -140,6 +141,12 @@ def generateOTP(mobile):
     else:
         return False
 
+def changing_naive_time(date):
+    date = datetime.strptime(date, '%Y-%m-%d')
+    # print(type(date))
+    new_date =timezone.make_aware(date, timezone.get_default_timezone())
+    # print("Date ",new_date)
+    return new_date
 
 def validateOTP(mobile, otp):
     # return True

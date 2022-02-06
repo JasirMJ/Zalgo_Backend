@@ -16,6 +16,7 @@ class TransactionAPI(ListAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
+
         pagination = self.request.GET.get('pagination', '1')
         if pagination == '0':
             print("Pagination None")
@@ -23,8 +24,16 @@ class TransactionAPI(ListAPIView):
 
         id = self.request.GET.get('id', '')
         is_dropdown = self.request.GET.get('is_dropdown', False)
-        name = self.request.GET.get('name','')
-        topic_code = self.request.GET.get('topic_code','')
+        transaction_id = self.request.GET.get('transaction_id', '')
+        username = self.request.GET.get('username', '')
+        product_name = self.request.GET.get('product_name', '')
+        amount_in_min = self.request.GET.get('amount_in_min', '')
+        amount_in_max = self.request.GET.get('amount_in_max', '')
+        amount_out_min = self.request.GET.get('amount_out_min', '')
+        amount_out_max = self.request.GET.get('amount_out_max', '')
+        from_date = self.request.GET.get('from_date', '')
+        to_date = self.request.GET.get('to_date', '')
+
 
         if is_dropdown=='1':
             print("Drop down get request")
@@ -32,9 +41,22 @@ class TransactionAPI(ListAPIView):
 
         qs = Transaction.objects.all()
 
+        if username: qs = qs.filter(username=username)
+        if product_name: qs = qs.filter(product_name=product_name)
+        if transaction_id: qs = qs.filter(transaction_id=transaction_id)
+
+        if from_date:qs = qs.filter(created_at__gte=changing_naive_time(from_date))
+        if to_date:qs = qs.filter(created_at__lte=changing_naive_time(to_date))
+
+        if amount_in_min: qs = qs.filter(amount_in__gte=amount_in_min)
+        if amount_in_max: qs = qs.filter(amount_in__lte=amount_in_max)
+
+        if amount_out_min: qs = qs.filter(amount_out__gte=amount_out_min)
+        if amount_out_max: qs = qs.filter(amount_out__lte=amount_out_max)
+
+
         if id: qs = qs.filter(id=id)
-        if name: qs = qs.filter(name__icontains=name)
-        if topic_code: qs = qs.filter(topic_code=topic_code)
+
 
         return qs.order_by('-id')
 

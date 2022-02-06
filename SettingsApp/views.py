@@ -8,6 +8,7 @@ from zalgo_BE.GlobalImports import *
 
 settings_list = [
     # SettingsModel(data_type="NUMBER",field_name='contact_24x7',value="7987995846",description="Customer support 24x7",is_active=1),
+    SettingsModel(data_type="NUMBER",field_name='Dollar Price',value="75",description="Update dollar price daily to convert payments with the multiple of dollar price",is_active=1),
     SettingsModel(data_type="NUMBER",field_name='EA queries',value="917907960873",description="Whatsapp number of EA queries",is_active=1),
     SettingsModel(data_type="NUMBER",field_name='VPS queries',value="917907960873",description="Whatsapp number of VPS queries",is_active=1),
     SettingsModel(data_type="NUMBER",field_name='Broker queries',value="917907960873",description="Whatsapp number of Broker queries",is_active=1),
