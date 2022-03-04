@@ -41,10 +41,14 @@ settings_list = [
     SettingsModel(data_type="TEXT", field_name='onesignal_app_id', value="8b97c9bb-8bd0-47cd-baec-05eee09b5cd6",
                   description="Used to send notification to the users", is_active=1),
 
+
+
     SettingsModel(data_type="TEXT", field_name='onesignal_rest_api_key',
                   value="ZThhZGZmOTQtMzE1ZC00MjNkLThhOGMtYzA3YTJjNjk1YzM0",
                   description="Used to send notification to the users", is_active=1),
 
+    SettingsModel(data_type="TEXT", field_name='min_app_version', value="1.0.0",
+                  description="App will block if the app version below mentioned, format must be is X.X.X", is_active=1),
 ]
 
 

@@ -339,6 +339,45 @@ class GenerateOTP(ListAPIView):
                 }
             )
 
+class MobileLogin(ListAPIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (AllowAny,)
+    def post(self, request):
+        try:
+            mobile = request.POST["mobile"]
+            otp = request.POST["otp"]
+            print("request accepted")
+            # resp = validateOTP(mobile,otp)
+            print("otp generated")
+            resp = True
+
+            if resp == True:
+                user_qs = UserDetails.objects.filter(mobile=mobile)
+                if user_qs.count():
+                    user_obj = user_qs.first()
+                    username = user_obj.username
+                    email = user_obj.email
+
+                    token, created = Token.objects.get_or_create(user=user_obj)
+                    print("Token ",token)
+                    return ResponseFunction(1, "OTP verified",{"id":user_obj.id,"username":username,"email":email,"token":"Token "+str(token)})
+                else:
+                    return ResponseFunction(1, "OTP verified", {})
+            else:
+                return ResponseFunction(0, "Failed to verify OTP")
+
+        except Exception as e:
+            printLineNo()
+            return Response(
+                {
+                    STATUS: False,
+                    MESSAGE: str(e),
+                    "line_no": printLineNo()
+                }
+            )
+
+
+
 class OTPVerification(ListAPIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (AllowAny,)
