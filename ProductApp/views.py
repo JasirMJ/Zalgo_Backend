@@ -57,25 +57,7 @@ class ProductAPI(ListAPIView):
             print("Receved required Fields")
 
         name = self.request.POST.get('name','')
-        # if name not in REQUEST_TYPES:
-        #     return ResponseFunction(0,"Invalid name for Product 'name'",REQUEST_TYPES)
 
-
-        # return ResponseFunction(0, f"Excepction occured ", {})
-        # data = {
-        #
-        #     "id": self.request.POST.get('id',''),
-        #     "name": self.request.POST.get('name'),
-        #     "Product_by": self.request.user.username,
-        #     "customer_name": self.request.POST.get('customer_name',''),
-        #     "account_number":  self.request.POST.get('account_number',''),
-        #     "broker":  self.request.POST.get('broker',''),
-        #     "server":  self.request.POST.get('server',''),
-        #     "phone_number":  self.request.POST.get('phone_number',''),
-        #     "password":  self.request.POST.get('password',''),
-        #     "is_paid": self.request.POST.get('is_paid',False),
-        #     "is_free_trail": self.request.POST.get('is_free_trail',False),
-        # }
         data = self.request.data
 
         try:

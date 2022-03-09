@@ -17,6 +17,7 @@ class Product(models.Model):
     name = models.CharField(max_length=255,null=False, blank=True)
     price = models.CharField(max_length=255,null=True,blank=True)
     description = models.TextField()
+    external_url = models.TextField(null=True, blank=True)
     terms_and_condition = models.CharField(max_length=255, null=True, blank=True)
     file = models.FileField(null=True, blank=True)
 
