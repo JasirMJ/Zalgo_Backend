@@ -50,7 +50,7 @@ settings_list = [
     SettingsModel(data_type="TEXT", field_name='min_app_version', value="1.0.0",
                   description="App will block if the app version below mentioned, format must be is X.X.X", is_active=1),
 
-SettingsModel(data_type="TEXT", field_name='join_community_url', value="1.0.0",
+SettingsModel(data_type="TEXT", field_name='join_community_url', value="https://www.google.com",
                   description="URL to join community", is_active=1),
 ]
 
