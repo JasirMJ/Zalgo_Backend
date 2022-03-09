@@ -51,7 +51,7 @@ pg_dump -U postgres {DATABASE_NAME} -h {HOST} > {BASCKUP_FILENAME.sql}
 ## Backup
 
 pg_dump -U postgres zalgo_db -h localhost > zalgo_db27112021-2.sql
-
+PGPASSWORD=vLnMINbVxGt9 pg_dump -U postgres zalgo_db -h localhost > zalgo_db09032022.sql
 or
 
 python manage.py dumpdata --exclude=auth --exclude=contenttypes > db.json
