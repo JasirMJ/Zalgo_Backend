@@ -115,7 +115,7 @@ class SettingsAPI(ListAPIView):
             # print("field_name list ")
             qs = qs.filter(field_name__in=field_name_list)
 
-        return qs.order_by("-id")
+        return qs.order_by("field_name")
 
     def post(self, request):
         # print("data ",self.request.data)
