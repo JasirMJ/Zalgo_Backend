@@ -23,6 +23,8 @@ settings_list = [
     SettingsModel(data_type="NUMBER",field_name='VIP 3 %',value="15",description="Percentage of commission value for VIP 3",is_active=1),
     SettingsModel(data_type="NUMBER",field_name='VIP 4 %',value="20",description="Percentage of commission value for VIP 4",is_active=1),
 
+    SettingsModel(data_type="NUMBER",field_name='referal_reward',value="500",description="Commission amount on each course purchase",is_active=1),
+
     SettingsModel(data_type="BOOLEAN",field_name='IB change option',value="true",description="if its true then IB change option will be shown in app",is_active=1),
 
     # SettingsModel(data_type="FILE",field_name='Brocker Image',value="true", file=None,description="Brockage Image",is_active=1),
