@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from LessonApp.models import Lesson
+from SettingsApp.models import SettingsModel
 from TransactionApp.models import *
 from TransactionApp.serializers import *
 from zalgo_BE.GlobalFunctions import *
@@ -109,6 +110,9 @@ class TransactionAPI(ListAPIView):
 
             obj = serializer.save(user=user)
 
+            if keyword == "course purchase":
+                setBusinessLogic(user_obj = user)
+
             return ResponseFunction(1, msg, TransactionSerializer(obj).data)
         except Exception as e:
             printLineNo()
@@ -143,3 +147,33 @@ class TransactionAPI(ListAPIView):
                 }
             )
 
+
+def setBusinessLogic(**kwargs):
+    user_obj = kwargs.get('user_obj')
+    referal_code_used = user_obj.referal_code_used
+    print("Referal code used ",referal_code_used)
+
+    if referal_code_used:
+        referer_qs = UserDetails.objects.filter(referal_code=user_obj.referal_code_used)
+
+        if referer_qs.count() > 0:
+            referer_obj = referer_qs.first()
+            print("Refered User : ",referer_obj.username)
+            referer_obj.business_count = referer_obj.business_count + 1
+            # referer_obj.business_count = 100 # business count in [0,9,10,19,45,51,100] Test case passed
+
+            if referer_obj.business_count:
+                commission_amount = SettingsModel.objects.get(field_name="referal_reward").value
+                referer_obj.wallet_credited = float(referer_obj.wallet_credited) + commission_amount
+                referer_obj.wallet_balance = float(referer_obj.wallet_balance) + commission_amount
+                print(f"Referer Walelt Updated by +{commission_amount} ie Total Balance : ",referer_obj.wallet_credited)
+
+            else:
+                print("Didnt meet enough business ",referer_obj.business_count)
+            referer_obj.save()
+        else:
+            print("Referal User Not Fount")
+    else:
+        print(f"{user_obj.username} NOT USED ANY REFERAL")
+
+    return user_obj
