@@ -163,7 +163,7 @@ def setBusinessLogic(**kwargs):
             # referer_obj.business_count = 100 # business count in [0,9,10,19,45,51,100] Test case passed
 
             if referer_obj.business_count:
-                commission_amount = SettingsModel.objects.get(field_name="referal_reward").value
+                commission_amount = float(SettingsModel.objects.get(field_name="referal_reward").value)
                 referer_obj.wallet_credited = float(referer_obj.wallet_credited) + commission_amount
                 referer_obj.wallet_balance = float(referer_obj.wallet_balance) + commission_amount
                 print(f"Referer Walelt Updated by +{commission_amount} ie Total Balance : ",referer_obj.wallet_credited)
