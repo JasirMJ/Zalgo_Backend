@@ -11,11 +11,11 @@ class UserSerializer(DynamicFieldsModelSerializer):
         # fields = ["mobile_number", "whatsapp_number", "is_customer", "is_staff"]
         fields = "__all__"
 
-# class UserDetailsSerializer(DynamicFieldsModelSerializer):
-#     class Meta:
-#         model = UserDetails
-#         # fields = ["mobile_number", "whatsapp_number", "is_customer", "is_staff"]
-#         fields = "__all__"
+class UserDetailsSerializer(DynamicFieldsModelSerializer):
+    class Meta:
+        model = UserDetails
+        # fields = ["mobile_number", "whatsapp_number", "is_customer", "is_staff"]
+        fields = "__all__"
 
 # class UserSerializerWithOutPass(DynamicFieldsModelSerializer):
 #     class Meta:

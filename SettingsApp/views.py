@@ -34,7 +34,7 @@ settings_list = [
 
     SettingsModel(data_type="TEXT",field_name='Razorpay API Key',value="rzp_test_bGi2cqJhwKKzT1",description="Razorpay key for online payments",is_active=1),
     SettingsModel(data_type="TEXT",field_name='Razorpay Secret API Key',value="7FekPaDihsgYNAk8WfgNuhxH",description="Razorpay Secret key for REST API's",is_active=1),
-    SettingsModel(data_type="TEXT",field_name='Google API Key',value="7FekPaDihsgYNAk8WfgNuhxH",description="Razorpay Secret key for REST API's",is_active=1),
+    SettingsModel(data_type="TEXT",field_name='Google API Key',value="7FekPaDihsgYNAk8WfgNuhxH",description="Google API key, for google services",is_active=1),
 
     # SettingsModel(data_type="TEXT",field_name='extra_charge_description',value="Due to heavy rain",description="Extra charge description",is_active=1),
     # SettingsModel(data_type="BOOLEAN",field_name='prescription_box',value="true",description="if its true then prescription box will be enabled",is_active=1),

@@ -129,9 +129,9 @@ class CoursePurchaseHistoryAPI(ListAPIView):
 
     def get(self,request):
         print("Request user ",self.request.user)
-
-        for x in Token.objects.all():
-            print("user  ",x.user.id,':',x.user," : Token",x.key)
+        #
+        # for x in Token.objects.all():
+        #     print("user  ",x.user.id,':',x.user," : Token",x.key)
 
         keyword = self.request.GET.get('keyword','my_course')
 
