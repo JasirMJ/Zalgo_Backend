@@ -218,7 +218,7 @@ class UserAPI(ListAPIView):
                 id = json.loads(id)
                 # print(id)
                 UserDetails.objects.filter(id__in=id).delete()
-                return ResponseFunction(1, "Deleted data having id " + str(id))
+                return ResponseFunction(1, "Deleted data having id " + str(id),{})
 
         except Exception as e:
             print(f"Excepction occured {e} error at {printLineNo()}")

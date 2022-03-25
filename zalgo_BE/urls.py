@@ -40,6 +40,7 @@ urlpatterns = [
     path('transactions/', include('TransactionApp.urls')),
     path('partners/', include('PartnersApp.urls')),
     path('zalgo-accounts/', include('ZalgoAccountApp.urls')),
+    path('paytm/', include('PaytmApp.urls')),
     path('dashboard-userapp/', UserAppDashboardAPI.as_view()),
     path('dashboard-grade/', GradeAPI.as_view()),
 ]
