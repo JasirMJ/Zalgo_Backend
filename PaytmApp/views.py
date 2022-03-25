@@ -41,10 +41,10 @@ class InitiateTransactionAPI(ListAPIView):
             MerchantID = self.request.POST.get("MerchantID","XEGbPk68721787257649")
             MerchantKey = self.request.POST.get("","hFxAOaR_RPgkR7LZ")
             TXNAmount = self.request.POST['TXNAmount']
-            Currency = self.request.POST.get("","INR")
-            websiteName = self.request.POST.get("","WEBSTAGING") # or DEFAULT
-            orderId = self.request.POST.get("","1234")
-            custId = self.request.POST.get("","1234")
+            Currency = self.request.POST.get("Currency","INR")
+            websiteName = self.request.POST.get("websiteName","WEBSTAGING") # or DEFAULT
+            orderId = self.request.POST.get("orderId","1234")
+            custId = self.request.POST.get("custId","1234")
 
 
             # Website
