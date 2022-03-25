@@ -113,23 +113,12 @@ class TransactionStatusAPI(ListAPIView):
 
         try:
 
-            msg="initiated "
+            msg="TransactionStatusAPI initiated "
             paytmParams = dict()
 
             MerchantID = self.request.POST.get("MerchantID","XEGbPk68721787257649")
-            MerchantKey = self.request.POST.get("","hFxAOaR_RPgkR7LZ")
-            TXNAmount = self.request.POST['TXNAmount']
-            Currency = self.request.POST.get("Currency","INR")
-            websiteName = self.request.POST.get("websiteName","WEBSTAGING") # or DEFAULT
+            MerchantKey = self.request.POST.get("MerchantKey","hFxAOaR_RPgkR7LZ")
             orderId = self.request.POST.get("orderId","1234")
-            custId = self.request.POST.get("custId","1234")
-
-            import requests
-            import json
-
-            # import checksum generation utility
-            # You can get this utility from https://developer.paytm.com/docs/checksum/
-            import PaytmChecksum
 
             # initialize a dictionary
             paytmParams = dict()
@@ -146,7 +135,7 @@ class TransactionStatusAPI(ListAPIView):
 
             # Generate checksum by parameters we have in body
             # Find your Merchant Key in your Paytm Dashboard at https://dashboard.paytm.com/next/apikeys
-            checksum = PaytmChecksum.generateSignature(json.dumps(paytmParams["body"]), "YOUR_MERCHANT_KEY")
+            checksum = PaytmChecksum.generateSignature(json.dumps(paytmParams["body"]), MerchantKey)
 
             # head parameters
             paytmParams["head"] = {
