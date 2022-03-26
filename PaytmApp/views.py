@@ -47,7 +47,7 @@ class InitiateTransactionAPI(ListAPIView):
             callbackurl = self.request.POST.get("callbackurl","WEBSTAGING") # or DEFAULT, #https://api.zaalgo.com/callback/
             orderId = self.request.POST.get("orderId","1234")
             custId = self.request.POST.get("custId","1234")
-            is_live = self.request.POST.get("is_live","")
+            is_live = self.request.POST.get("is_live",0)
 
             print("Is Live ",is_live)
             print("Is Live type ",type(is_live))
