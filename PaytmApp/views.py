@@ -90,7 +90,7 @@ class InitiateTransactionAPI(ListAPIView):
             if is_live:
                 # for Production
                 mode = "Production"
-                url = "https://securegw.paytm.in/theia/api/v1/initiateTransaction?mid=YOUR_MID_HERE&orderId=ORDERID_98765"
+                url = f"https://securegw.paytm.in/theia/api/v1/initiateTransaction?mid={MerchantID}&orderId={orderId}"
 
             else:
                 # for Staging
