@@ -176,8 +176,8 @@ class TransactionStatusAPI(ListAPIView):
 class CallBackURLAPI(ListAPIView):
     def get(self,request):
         print("CallBackURLAPI get : ",self.request.data)
-        return ResponseFunction(0,"worked",{})
+        return ResponseFunction(0,"worked",self.request.data)
 
     def post(self,request):
         print("CallBackURLAPI post : ",self.request.data)
-        return ResponseFunction(0,"worked",{})
+        return ResponseFunction(0,"worked",self.request.data)
