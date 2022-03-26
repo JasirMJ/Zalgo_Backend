@@ -20,6 +20,7 @@ class InitiateTransactionAPI(ListAPIView):
 
 
     def post(self, request):
+        print("InitiateTransactionAPI : Data : ",self.request.data)
         # required = ["name","country_code"]
         # validation_errors = ValidateRequest(required, self.request.data)
         #
@@ -38,8 +39,8 @@ class InitiateTransactionAPI(ListAPIView):
             paytmParams = dict()
 
 
-            MerchantID = self.request.POST.get("MerchantID","XEGbPk68721787257649")
-            MerchantKey = self.request.POST.get("MerchantKey","hFxAOaR_RPgkR7LZ")
+            MerchantID = self.request.POST['MerchantID']#.get("MerchantID","XEGbPk68721787257649")
+            MerchantKey = self.request.POST['MerchantKey']#.get("MerchantKey","hFxAOaR_RPgkR7LZ")
             TXNAmount = self.request.POST['TXNAmount']
             Currency = self.request.POST.get("Currency","INR")
             websiteName = self.request.POST.get("websiteName","WEBSTAGING") # or DEFAULT
@@ -63,7 +64,7 @@ class InitiateTransactionAPI(ListAPIView):
                 "mid": MerchantID,
                 "websiteName": websiteName,
                 "orderId": orderId,
-                "callbackUrl": websiteName,#"https://<callback URL to be used by merchant>",
+                "callbackUrl": callbackurl , #websiteName,#"https://<callback URL to be used by merchant>",
                 "txnAmount": {
                     "value": TXNAmount,
                     "currency": Currency,
@@ -108,6 +109,7 @@ class TransactionStatusAPI(ListAPIView):
 
 
     def post(self, request):
+
         # required = ["name","country_code"]
         # validation_errors = ValidateRequest(required, self.request.data)
         #
