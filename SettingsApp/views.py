@@ -52,8 +52,13 @@ settings_list = [
     SettingsModel(data_type="TEXT", field_name='min_app_version', value="1.0.0",
                   description="App will block if the app version below mentioned, format must be is X.X.X", is_active=1),
 
-SettingsModel(data_type="TEXT", field_name='join_community_url', value="https://www.google.com",
+    SettingsModel(data_type="TEXT", field_name='join_community_url', value="https://www.google.com",
                   description="URL to join community", is_active=1),
+
+    SettingsModel(data_type="BOOLEAN",field_name='paytm_live_mode',value="true",description="if its true then paytm works as production else staging",is_active=1),
+    SettingsModel(data_type="TEXT", field_name='paytm_merchant_id', value="vkYTGo14972197487927", description="Paytm MerchantID", is_active=1),
+    SettingsModel(data_type="TEXT", field_name='paytm_merchant_key', value="uoV3oypKJ1en6TOe", description="Paytm Merchant Key", is_active=1),
+
 ]
 
 
