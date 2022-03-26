@@ -43,8 +43,10 @@ class InitiateTransactionAPI(ListAPIView):
             TXNAmount = self.request.POST['TXNAmount']
             Currency = self.request.POST.get("Currency","INR")
             websiteName = self.request.POST.get("websiteName","WEBSTAGING") # or DEFAULT
+            callbackurl = self.request.POST.get("callbackurl","WEBSTAGING") # or DEFAULT, #https://api.zaalgo.com/callback/
             orderId = self.request.POST.get("orderId","1234")
             custId = self.request.POST.get("custId","1234")
+            is_live = self.request.POST.get("is_live",False)
 
 
             # Website
@@ -81,11 +83,15 @@ class InitiateTransactionAPI(ListAPIView):
 
             post_data = json.dumps(paytmParams)
 
-            # for Staging
-            url = f"https://securegw-stage.paytm.in/theia/api/v1/initiateTransaction?mid={MerchantID}&orderId={orderId}"
+            if is_live:
+                # for Production
+                url = "https://securegw.paytm.in/theia/api/v1/initiateTransaction?mid=YOUR_MID_HERE&orderId=ORDERID_98765"
 
-            # for Production
-            # url = "https://securegw.paytm.in/theia/api/v1/initiateTransaction?mid=YOUR_MID_HERE&orderId=ORDERID_98765"
+            else:
+                # for Staging
+                url = f"https://securegw-stage.paytm.in/theia/api/v1/initiateTransaction?mid={MerchantID}&orderId={orderId}"
+
+
             response = requests.post(url, data=post_data, headers={"Content-type": "application/json"}).json()
             print("Paytm Initiate Response ",response)
             return ResponseFunction(1, msg, {"request_data":self.request.data,"response":response})
@@ -119,6 +125,7 @@ class TransactionStatusAPI(ListAPIView):
             MerchantID = self.request.POST.get("MerchantID","XEGbPk68721787257649")
             MerchantKey = self.request.POST.get("MerchantKey","hFxAOaR_RPgkR7LZ")
             orderId = self.request.POST.get("orderId","1234")
+            is_live = self.request.POST.get("is_live", False)
 
             # initialize a dictionary
             paytmParams = dict()
@@ -147,11 +154,14 @@ class TransactionStatusAPI(ListAPIView):
             # prepare JSON string for request
             post_data = json.dumps(paytmParams)
 
-            # for Staging
-            url = "https://securegw-stage.paytm.in/v3/order/status"
+            if is_live:
+                # for Production
+                url = "https://securegw.paytm.in/v3/order/status"
+            else:
+                # for Staging
+                url = "https://securegw-stage.paytm.in/v3/order/status"
 
-            # for Production
-            # url = "https://securegw.paytm.in/v3/order/status"
+
 
             response = requests.post(url, data=post_data, headers={"Content-type": "application/json"}).json()
 
@@ -161,3 +171,13 @@ class TransactionStatusAPI(ListAPIView):
             msg = "Excepction @ InitiateTransactionAPI "+ printLineNo()+ " : "+ str(e)
 
             return ResponseFunction(0,msg,{})
+
+
+class CallBackURLAPI(ListAPIView):
+    def get(self):
+        print("CallBackURLAPI get : ",self.request.data)
+        return ResponseFunction(0,"worked",{})
+
+    def post(self):
+        print("CallBackURLAPI post : ",self.request.data)
+        return ResponseFunction(0,"worked",{})
