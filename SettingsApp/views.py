@@ -19,8 +19,8 @@ settings_list = [
     SettingsModel(data_type="TEXT",field_name='stock URL',value="https://www.google.com",description="URL for stock",is_active=1),
     SettingsModel(data_type="TEXT",field_name='forex URL',value="https://www.google.com",description="URL for forex",is_active=1),
 
-    # SettingsModel(data_type="TEXT", field_name='join_community URL', value="https://www.google.com",
-    #               description="URL to join community", is_active=1),
+    SettingsModel(data_type="TEXT", field_name='join_community URL', value="https://www.google.com",
+                  description="URL to join community", is_active=1),
 
     SettingsModel(data_type="NUMBER",field_name='Free trail periods in days',value="14",description="Free trail periods for product and services",is_active=1),
     SettingsModel(data_type="NUMBER",field_name='Subscription priods in days',value="30",description="Subscripton periods for product and services",is_active=1),
