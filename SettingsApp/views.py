@@ -9,10 +9,18 @@ from zalgo_BE.GlobalImports import *
 settings_list = [
     # SettingsModel(data_type="NUMBER",field_name='contact_24x7',value="7987995846",description="Customer support 24x7",is_active=1),
     SettingsModel(data_type="NUMBER",field_name='Dollar Price',value="75",description="Update dollar price daily to convert payments with the multiple of dollar price",is_active=1),
-    SettingsModel(data_type="NUMBER",field_name='EA queries',value="917907960873",description="Whatsapp number of EA queries",is_active=1),
-    SettingsModel(data_type="NUMBER",field_name='VPS queries',value="917907960873",description="Whatsapp number of VPS queries",is_active=1),
-    SettingsModel(data_type="NUMBER",field_name='Broker queries',value="917907960873",description="Whatsapp number of Broker queries",is_active=1),
-    SettingsModel(data_type="NUMBER",field_name='Other queries',value="917907960873",description="Whatsapp number of Other queries",is_active=1),
+
+    SettingsModel(data_type="NUMBER",field_name='crypto queries',value="917907960873",description="Whatsapp number of Crypto queries",is_active=1),
+    SettingsModel(data_type="NUMBER",field_name='stock queries',value="917907960873",description="Whatsapp number of Stock queries",is_active=1),
+    SettingsModel(data_type="NUMBER",field_name='forex queries',value="917907960873",description="Whatsapp number of Forex queries",is_active=1),
+    SettingsModel(data_type="NUMBER",field_name='join_our_community queries',value="917907960873",description="Whatsapp number of join community queries",is_active=1),
+
+    SettingsModel(data_type="TEXT",field_name='crypto url',value="https://www.google.com",description="URL for crypto",is_active=1),
+    SettingsModel(data_type="TEXT",field_name='stock url',value="https://www.google.com",description="URL for stock",is_active=1),
+    SettingsModel(data_type="TEXT",field_name='forex url',value="https://www.google.com",description="URL for forex",is_active=1),
+
+    SettingsModel(data_type="TEXT", field_name='join_community_url', value="https://www.google.com",
+                  description="URL to join community", is_active=1),
 
     SettingsModel(data_type="NUMBER",field_name='Free trail periods in days',value="14",description="Free trail periods for product and services",is_active=1),
     SettingsModel(data_type="NUMBER",field_name='Subscription priods in days',value="30",description="Subscripton periods for product and services",is_active=1),
@@ -52,8 +60,7 @@ settings_list = [
     SettingsModel(data_type="TEXT", field_name='min_app_version', value="1.0.0",
                   description="App will block if the app version below mentioned, format must be is X.X.X", is_active=1),
 
-    SettingsModel(data_type="TEXT", field_name='join_community_url', value="https://www.google.com",
-                  description="URL to join community", is_active=1),
+
 
     SettingsModel(data_type="BOOLEAN",field_name='paytm_live_mode',value="true",description="if its true then paytm works as production else staging",is_active=1),
     SettingsModel(data_type="TEXT", field_name='paytm_merchant_id', value="vkYTGo14972197487927", description="Paytm MerchantID", is_active=1),
