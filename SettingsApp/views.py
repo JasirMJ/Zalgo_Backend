@@ -15,12 +15,12 @@ settings_list = [
     SettingsModel(data_type="NUMBER",field_name='forex queries',value="917907960873",description="Whatsapp number of Forex queries",is_active=1),
     SettingsModel(data_type="NUMBER",field_name='join_our_community queries',value="917907960873",description="Whatsapp number of join community queries",is_active=1),
 
-    SettingsModel(data_type="TEXT",field_name='xcrypto URL',value="https://www.google.com",description="URL for crypto",is_active=1),
-    SettingsModel(data_type="TEXT",field_name='xstock URL',value="https://www.google.com",description="URL for stock",is_active=1),
-    SettingsModel(data_type="TEXT",field_name='xforex URL',value="https://www.google.com",description="URL for forex",is_active=1),
+    SettingsModel(data_type="TEXT",field_name='crypto URL',value="https://www.google.com",description="URL for crypto",is_active=1),
+    SettingsModel(data_type="TEXT",field_name='stock URL',value="https://www.google.com",description="URL for stock",is_active=1),
+    SettingsModel(data_type="TEXT",field_name='forex URL',value="https://www.google.com",description="URL for forex",is_active=1),
 
-    SettingsModel(data_type="TEXT", field_name='xjoin_community URL', value="https://www.google.com",
-                  description="URL to join community", is_active=1),
+    # SettingsModel(data_type="TEXT", field_name='join_community URL', value="https://www.google.com",
+    #               description="URL to join community", is_active=1),
 
     SettingsModel(data_type="NUMBER",field_name='Free trail periods in days',value="14",description="Free trail periods for product and services",is_active=1),
     SettingsModel(data_type="NUMBER",field_name='Subscription priods in days',value="30",description="Subscripton periods for product and services",is_active=1),
