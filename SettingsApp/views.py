@@ -13,7 +13,7 @@ settings_list = [
     SettingsModel(data_type="NUMBER",field_name='crypto queries',value="917907960873",description="Whatsapp number of Crypto queries",is_active=1),
     SettingsModel(data_type="NUMBER",field_name='stock queries',value="917907960873",description="Whatsapp number of Stock queries",is_active=1),
     SettingsModel(data_type="NUMBER",field_name='forex queries',value="917907960873",description="Whatsapp number of Forex queries",is_active=1),
-    SettingsModel(data_type="NUMBER",field_name='join_our_community queries',value="917907960873",description="Whatsapp number of join community queries",is_active=1),
+    SettingsModel(data_type="NUMBER",field_name='other queries',value="917907960873",description="Whatsapp number of other queries",is_active=1),
 
     SettingsModel(data_type="TEXT",field_name='crypto URL',value="https://www.google.com",description="URL for crypto",is_active=1),
     SettingsModel(data_type="TEXT",field_name='stock URL',value="https://www.google.com",description="URL for stock",is_active=1),
