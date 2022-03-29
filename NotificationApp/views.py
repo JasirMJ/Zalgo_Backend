@@ -102,6 +102,7 @@ class NotificationAPI(ListAPIView):
 
     def patch(self, request):
         print("notification patch ",request.data)
+        print("notification patch ",self.request.user.id,self.request.user.username)
         required = ["keyword"]
         validation_errors = ValidateRequest(required, self.request.data)
         if len(validation_errors) > 0:
