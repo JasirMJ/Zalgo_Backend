@@ -161,10 +161,11 @@ class NotificationAPI(ListAPIView):
                 return ResponseFunction(1, msg, {"unread": 0})
 
             if keyword == "get_unread":
-                _qs = UserNotificationStatus.objects.filter(user_id=self.request.user.id,read=0)
+                tota_notification_cnt = Notification.objects.all().count()
+                _qs = UserNotificationStatus.objects.filter(user__id=self.request.user.id,read=0)
                 msg = "Total unread notifications"
 
-                return ResponseFunction(1, msg, {"unread": _qs.count()})
+                return ResponseFunction(1, msg, {"unread": tota_notification_cnt - _qs.count()})
 
             return ResponseFunction(1, msg, {})
         except Exception as e:
