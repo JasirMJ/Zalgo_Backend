@@ -35,7 +35,8 @@ class NotificationAPI(ListAPIView):
 
             # serializer change filters
             if is_user_app == '1':
-                self.serializer_class = NotificationAppSerializer
+                self.serializer_class = NotificationSerializer
+                # self.serializer_class = NotificationAppSerializer
             if is_dropdown == '1':
                 self.serializer_class = NotificationDropdownSerializer
             # serializer change -end

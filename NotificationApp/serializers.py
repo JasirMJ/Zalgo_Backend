@@ -15,10 +15,11 @@ class NotificationSerializer(DynamicFieldsModelSerializer):
             return 1
         else:
             return 0
+        
 class NotificationAppSerializer(DynamicFieldsModelSerializer):
     class Meta:
         model = Notification
-        fields = ["id","name", "file","type"]
+        fields = ["id","name", "file","type","url","external_url"]
 
 
 class NotificationDropdownSerializer(DynamicFieldsModelSerializer):

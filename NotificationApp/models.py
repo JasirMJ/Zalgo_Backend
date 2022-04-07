@@ -12,6 +12,7 @@ class Notification(models.Model):
     file = models.FileField(null=True, blank=True)
 
     url = models.TextField(null=True)
+    external_url = models.TextField(null=True)
 
 
     is_active = models.BooleanField(default=False)
