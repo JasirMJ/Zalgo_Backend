@@ -8,6 +8,7 @@ from UserApp.models import UserDetails
 
 class Course(models.Model):
     name = models.CharField(max_length=50)
+    preview_url = models.TextField(null=True)
     course_duration = models.CharField(max_length=50,null=True)
     file = models.FileField(null=False,blank=False)
     description = models.TextField(null=True)
