@@ -26,7 +26,7 @@ class CourseSerializer(DynamicFieldsModelSerializer):
 class CourseDropdownSerializer(DynamicFieldsModelSerializer):
     class Meta:
         model = Course
-        fields = ["id", "name"]
+        fields = ["id", "name","course_fee"]
 
 
 class CoursePurchaseHistorySerializer(DynamicFieldsModelSerializer):
