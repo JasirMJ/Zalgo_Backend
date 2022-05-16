@@ -254,7 +254,7 @@ class CourseAnalyticsAPI(APIView):
         # couse purchases by users 
         list_courses = []
         for x in qs:
-            obj = {"user":x.user.id,"name":x.user.name,"course":x.course.id,"course_name":x.course.name}
+            obj = {"user":x.user.id,"username":x.user.username,"course":x.course.id,"course_name":x.course.name}
             list_courses.append(obj)
 
         data = {}
