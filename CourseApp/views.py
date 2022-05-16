@@ -234,10 +234,10 @@ class CourseAnalyticsAPI(APIView):
         qs = CoursePurchaseHistory.objects.filter(date_time__range=[from_date,to_date]).select_related('course').select_related('user')
 
         if from_date:
-            qs = qs.filter(date_time__gte=from_date+" 00:00:00")
+            qs = qs.filter(date_time__gte=from_date)
 
         if to_date:
-            qs = qs.filter(date_time__lte=to_date+" 23:59:59")
+            qs = qs.filter(date_time__lte=to_date)
 
 
         
