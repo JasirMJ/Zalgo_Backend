@@ -6,6 +6,7 @@ from CourseApp.models import *
 from CourseApp.serializers import *
 from zalgo_BE.GlobalFunctions import *
 from zalgo_BE.GlobalImports import *
+from zalgo_BE.settings import TIME_ZONE
 
 
 
@@ -211,3 +212,56 @@ class CoursePurchaseHistoryAPI(ListAPIView):
 
             return ResponseFunction(0,f"Excepction occured {str(e)}",{})
 
+class CourseAnalyticsAPI(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    
+    def get(self,request):
+        from datetime import datetime,timedelta
+
+        print("Request user ",self.request.user)
+
+        from_date  = self.request.GET.get('from_date',(datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d"))
+
+        
+        to_date = self.request.GET.get('to_date',datetime.now().strftime("%Y-%m-%d"))
+
+        amsterdam_timezone = pytz.timezone(TIME_ZONE)
+        from_date = amsterdam_timezone.localize(datetime.strptime(from_date, '%Y-%m-%d'))
+        to_date = amsterdam_timezone.localize(datetime.strptime(to_date, '%Y-%m-%d'))
+
+        # qs = CoursePurchaseHistory.objects.all()
+        qs = CoursePurchaseHistory.objects.filter(date_time__range=[from_date,to_date]).select_related('course').select_related('user')
+
+        if from_date:
+            qs = qs.filter(date_time__gte=from_date+" 00:00:00")
+
+        if to_date:
+            qs = qs.filter(date_time__lte=to_date+" 23:59:59")
+
+
+        
+
+        # total course purchases
+        total_course_purchases = qs.count()
+
+        # most course purchased with course name
+        most_course_purchased = qs.values('course__name').annotate(total_purchases=Count('course__name')).order_by('-total_purchases')[:1]
+
+        #least course purchased with course name
+        least_course_purchased = qs.values('course__name').annotate(total_purchases=Count('course__name')).order_by('total_purchases')[:1]
+
+        # couse purchases by users 
+        list_courses = []
+        for x in qs:
+            obj = {"user":x.user.id,"name":x.user.name,"course":x.course.id,"course_name":x.course.name}
+            list_courses.append(obj)
+
+        data = {}
+
+        data['total_course_purchases'] = total_course_purchases
+        data['most_course_purchased'] = most_course_purchased
+        data['least_course_purchased'] = least_course_purchased
+        data['course_purchases_by_users'] = list_courses
+
+        return ResponseFunction(1, "Success", data)
