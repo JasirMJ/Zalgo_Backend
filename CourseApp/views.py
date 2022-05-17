@@ -230,15 +230,18 @@ class CourseAnalyticsAPI(APIView):
         from_date = amsterdam_timezone.localize(datetime.strptime(from_date+" 00:00:00", '%Y-%m-%d hh:mm:ss'))
         to_date = amsterdam_timezone.localize(datetime.strptime(to_date+" 23:59:59", '%Y-%m-%d hh:mm:ss'))
 
+        print(from_date)
+        print(to_date)
         # qs = CoursePurchaseHistory.objects.all()
         qs = CoursePurchaseHistory.objects.filter(date_time__range=[from_date,to_date]).select_related('course').select_related('user')
 
+        print(qs.count())
         if from_date:
             qs = qs.filter(date_time__gte=from_date)
-
+        print(qs.count())
         if to_date:
             qs = qs.filter(date_time__lte=to_date)
-
+        print(qs.count())
 
         
 
