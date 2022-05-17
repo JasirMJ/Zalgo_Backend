@@ -227,20 +227,21 @@ class CourseAnalyticsAPI(APIView):
         to_date = self.request.GET.get('to_date',datetime.now().strftime("%Y-%m-%d"))
 
         amsterdam_timezone = pytz.timezone(TIME_ZONE)
-        from_date = amsterdam_timezone.localize(datetime.strptime(from_date+" 00:00:00", '%Y-%m-%d hh:mm:ss'))
-        to_date = amsterdam_timezone.localize(datetime.strptime(to_date+" 23:59:59", '%Y-%m-%d hh:mm:ss'))
+        from_date = amsterdam_timezone.localize(datetime.strptime(from_date, '%Y-%m-%d'))
+        to_date = amsterdam_timezone.localize(datetime.strptime(to_date, '%Y-%m-%d'))
 
         print(from_date)
         print(to_date)
         # qs = CoursePurchaseHistory.objects.all()
-        qs = CoursePurchaseHistory.objects.filter(date_time__range=[from_date,to_date]).select_related('course').select_related('user')
+        # qs = CoursePurchaseHistory.objects.filter(date_time__range=[from_date,to_date]).select_related('course').select_related('user')
+        qs = CoursePurchaseHistory.objects.select_related('course').select_related('user')
 
         print(qs.count())
         if from_date:
-            qs = qs.filter(date_time__gte=from_date)
+            qs = qs.filter(date_time__gte=from_date+" 00:00:00")
         print(qs.count())
         if to_date:
-            qs = qs.filter(date_time__lte=to_date)
+            qs = qs.filter(date_time__lte=to_date+" 23:59:59")
         print(qs.count())
 
         
